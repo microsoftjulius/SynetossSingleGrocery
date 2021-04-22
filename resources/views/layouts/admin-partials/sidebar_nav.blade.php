@@ -18,7 +18,7 @@
                 </div>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a @if(request()->route()->getName() == 'Dashboard') class="nav-link active" @else class="nav-link" @endif href="/">
+                        <a @if(request()->route()->getName() == 'Dashboard') class="nav-link active" @else class="nav-link" @endif href="/dashboard">
                         <i class="ni ni-compass-04 text-info"></i>
                         <span class="nav-link-text">Dashboard</span>
                         </a>
@@ -36,7 +36,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#promotions" data-toggle="collapse" aria-expanded="false" @if(request()->route()->getName() == "Promotion Banners") class="nav-link dropdown-toggle active" @else class="nav-link" @endif">
+                        <a href="#promotions" data-toggle="collapse" aria-expanded="false" @if(request()->route()->getName() == "Promotion Banners" || request()->route()->getName() == "Pincodes" || request()->route()->getName() == 'Promocodes') class="nav-link dropdown-toggle active" @else class="nav-link" @endif">
                             <i class="fa fa-bullseye text-red"></i>
                             <span class="nav-link-text">Promotions</span>
                         </a>

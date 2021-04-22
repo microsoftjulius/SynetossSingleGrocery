@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ratting extends Model
 {
-    protected $table='ratting';
+    protected $table='rattings';
     protected $fillable=['user_id','ratting','comment'];
 
     public function users(){

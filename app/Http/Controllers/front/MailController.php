@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\front;
 
 use Illuminate\Http\Request;
 use App\Mail\VerifictionEmail;

@@ -14,6 +14,7 @@ class Cart extends Migration
     public function up()
     {
         Schema::create('shopping_cart', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('user_id');
             $table->foreignid('item_id');
             $table->string('item_name');

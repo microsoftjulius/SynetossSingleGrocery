@@ -23,7 +23,7 @@ class ItemController extends Controller
     function index() {
         $getcategory = Category::all();
         $getitem = Item::select('item.*')->with('category')->with('variation')
-        ->join('categories','item.cat_id','=','categories.id')->where('item.is_deleted','2')->where('categories.is_available','1')->get();
+        ->join('categories','item.category_id','=','categories.id')->where('item.is_deleted','2')->where('categories.is_available','1')->get();
 
         // return $getitem;
 

@@ -23,7 +23,7 @@ class AdminController extends Controller {
 
     public function home() {
         $getcategory = Category::where('is_available','1')->where('is_deleted','2')->get();
-        $getitems = Item::join('categories','item.cat_id','=','categories.id')->where('item.is_deleted','2')->where('categories.is_available','1')->where('item.item_status','1')->get();
+        $getitems = Item::join('categories','item.category_id','=','categories.id')->where('item.is_deleted','2')->where('categories.is_available','1')->where('item.item_status','1')->get();
         $getreview = Ratting::all();
         $getorders = Order::all();
         $order_total = Order::sum('order_total');

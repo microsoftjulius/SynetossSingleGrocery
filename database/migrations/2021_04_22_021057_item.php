@@ -14,6 +14,7 @@ class Item extends Migration
     public function up()
     {
         Schema::create('item', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('category_id');
             $table->string('item_name');
             $table->text('item_description');
