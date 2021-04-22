@@ -110,3 +110,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/my-profile', function() { return view('admin.profile');})->name('Profile');
 });
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
