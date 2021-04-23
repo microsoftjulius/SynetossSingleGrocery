@@ -2,15 +2,18 @@
 
 namespace App\Models;
 
+use Appstract\Stock\HasStock;
 use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
+    use HasStock;
+    
     protected $table='item';
-    protected $fillable=['cat_id','item_name','item_description','delivery_time'];
+    protected $fillable=['category_id','item_name','item_description','delivery_time'];
 
     public function category(){
-        return $this->hasOne('App\Models\Category','id','cat_id');
+        return $this->hasOne('App\Models\Category','id','category_id');
     }
 
     public function itemimage(){

@@ -15,7 +15,7 @@ class PincodeController extends Controller
      */
     public function index()
     {
-        $getpincode = Pincode::where('is_deleted','2')->get();
+        $getpincode = Pincode::where('is_deleted','no')->get();
         return view('admin.pincode',compact('getpincode'));
     }
 

@@ -15,7 +15,7 @@ class PromocodeController extends Controller
      */
     public function index()
     {
-        $getpromocode = Promocode::where('is_deleted','2')->get();
+        $getpromocode = Promocode::where('is_deleted','no')->orderBy('id','Desc')->get();
         return view('admin.promocodes',compact('getpromocode'));
     }
 

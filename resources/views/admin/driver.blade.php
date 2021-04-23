@@ -80,7 +80,7 @@
                             <label for="mobile">Mobile</label>
                             <input type="text" name="mobile" id="" class="form-control" required autocomplete="off" placeholder="mobile">
                             <label for="password">Password</label>
-                            <input type="text" name="password" id="" class="form-control" required autocomplete="off" placeholder="password">
+                            <input type="password" name="password" id="" class="form-control" required autocomplete="off" placeholder="password">
                             
                         </div>
                         <div class="modal-footer">

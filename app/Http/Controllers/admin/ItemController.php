@@ -23,23 +23,22 @@ class ItemController extends Controller
     function index() {
         $getcategory = Category::all();
         $getitem = Item::select('item.*')->with('category')->with('variation')
-        ->join('categories','item.category_id','=','categories.id')->where('item.is_deleted','2')->where('categories.is_available','1')->get();
-
-        // return $getitem;
+        ->join('categories','item.category_id','=','categories.id')->where('item.is_deleted','false')
+        ->where('categories.is_available','yes')->orderBy('item.id','asc')->get();
 
         return view('admin.item', compact('getcategory','getitem'));
     }
 
     function list()
     {
-        $getitem = Item::select('item.*')->with('category')->join('categories','item.cat_id','=','categories.id')->where('item.is_deleted','2')->where('categories.is_available','1')->get();
+        $getitem = Item::select('item.*')->with('category')->join('categories','item.category_id','=','categories.id')->where('item.is_deleted','2')->where('categories.is_available','1')->get();
         return view('theme.itemtable',compact('getitem'));
     }
 
     function itemimages($id) {
         $getitemimages = ItemImages::where('item_id', $id)->get();
         $getvariation = Variation::where('item_id', $id)->get();
-        $itemdetails = Item::join('categories','item.cat_id','=','categories.id')->where('item.id', $id)->get()->first();
+        $itemdetails = Item::join('categories','item.category_id','=','categories.id')->where('item.id', $id)->get()->first();
         return view('item-images', compact('getitemimages','itemdetails','getvariation'));
     }
 
@@ -62,11 +61,11 @@ class ItemController extends Controller
     function store(Request $request)
     {
         $validation = Validator::make($request->all(),[
-          'cat_id' => 'required',
-          'item_name' => ['required',Rule::unique('item')->where(function ($query) use ($request) {
-                return $query->where('item_status', '1')->where('is_deleted', '2');
+        'category_id' => 'required',
+        'item_name' => ['required',Rule::unique('item')->where(function ($query) use ($request) {
+                return $query->where('item_status', 'available')->where('is_deleted', 'false');
             })],
-          'file.*' => 'required|mimes:jpeg,png,jpg'
+        'file.*' => 'required|mimes:jpeg,png,jpg'
         ]);
         $error_array = array();
         $success_output = '';
@@ -82,10 +81,9 @@ class ItemController extends Controller
             
             // $pricearray = explode(',', $request->price);
             // $weightarray = explode(',', $request->weight);
-            
                 $item = new Item;
                         
-                $item->cat_id =$request->cat_id;
+                $item->category_id =$request->category_id;
                 $item->item_name =$request->item_name;
                 $item->brand =$request->brand;
                 $item->manufacturer =$request->manufacturer;
@@ -141,7 +139,7 @@ class ItemController extends Controller
     function storeimages(Request $request)
     {
         $validation = Validator::make($request->all(),[
-          'file.*' => 'required|mimes:jpeg,png,jpg'
+        'file.*' => 'required|mimes:jpeg,png,jpg'
         ]);
         $error_array = array();
         $success_output = '';
@@ -225,11 +223,11 @@ class ItemController extends Controller
     function update(Request $request)
     {
         $validation = Validator::make($request->all(),[
-          'getcat_id' => 'required',
-          'item_name' => ['required',Rule::unique('item')->where(function ($query) use ($request) {
-              return $query->where('item_status', '1')->where('is_deleted', '2')->where('id',"!=", $request->id);
+        'getcategory_id' => 'required',
+        'item_name' => ['required',Rule::unique('item')->where(function ($query) use ($request) {
+            return $query->where('item_status', '1')->where('is_deleted', '2')->where('id',"!=", $request->id);
             })],
-          'getdescription' => 'required'
+        'getdescription' => 'required'
         ]);
 
         $error_array = array();
@@ -249,7 +247,7 @@ class ItemController extends Controller
             $item->exists = true;
             $item->id = $request->id;
 
-            $item->cat_id =$request->getcat_id;
+            $item->category_id =$request->getcategory_id;
             $item->item_name =$request->item_name;
             $item->brand =$request->getbrand;
             $item->manufacturer =$request->getmanufacturer;
@@ -288,7 +286,7 @@ class ItemController extends Controller
     function updateimage(Request $request)
     {
         $validation = Validator::make($request->all(),[
-          'image' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+        'image' => 'required|image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
         $error_array = array();
@@ -358,12 +356,12 @@ class ItemController extends Controller
         $getitemimages = ItemImages::where('item_id', $request->item_id)->count();
 
         if ($getitemimages > 1) {
-           $itemimage=ItemImages::where('id', $request->id)->delete();
-           if ($itemimage) {
-               return 1;
-           } else {
-               return 0;
-           }
+        $itemimage=ItemImages::where('id', $request->id)->delete();
+        if ($itemimage) {
+            return 1;
+        } else {
+            return 0;
+        }
         } else {
             return 2;
         }        

@@ -86,7 +86,7 @@
                         </div>
                         <div class="modal-body">
                             <label for="Category">Category:</label>
-                                <select name="cat_id" id="" class="form-control" required>
+                                <select name="category_id" id="" class="form-control" required>
                                     <option value="">Select Category</option>
                                     @foreach ($getcategory as $category)
                                         <option value="{{ $category->id }}">{{ $category->category_name }}</option>

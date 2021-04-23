@@ -7,10 +7,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\WelcomeNotification\ReceivesWelcomeNotification;
+use CoreProc\WalletPlus\Models\Traits\HasWallets;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, HasWallets;
     use HasRoles;
 
     /**

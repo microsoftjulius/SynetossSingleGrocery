@@ -18,7 +18,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $getcategory = Category::where('is_deleted','no')->get();
+        $getcategory = Category::where('is_deleted','no')->orderBy('id', 'desc')->get();
         return view('admin.categories',compact('getcategory'));
     }
 
@@ -192,9 +192,8 @@ class CategoryController extends Controller
     {
         $category = Category::where('id', $id)->update( array('is_deleted'=>'yes') );
         if ($category) {
-            $item = Item::where('category_id', $id)->update( array('is_deleted'=>'1') );
+            $item = Item::where('category_id', $id)->update( array('is_deleted'=>'yes') );
             $items = Item::where('category_id', $id)->get();
-
             foreach ($items as $value) {
                 $UpdateCart = Cart::where('item_id', $value['id'])
                                     ->delete();

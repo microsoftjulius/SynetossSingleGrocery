@@ -4,8 +4,75 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b7d33b876557843b188051d2d303faa0",
+    "content-hash": "e48f08372c4194211480223e118ce33f",
     "packages": [
+        {
+            "name": "appstract/laravel-stock",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/appstract/laravel-stock.git",
+                "reference": "1e3cd9f552764f51dc31dc095794ea25aa911027"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/appstract/laravel-stock/zipball/1e3cd9f552764f51dc31dc095794ea25aa911027",
+                "reference": "1e3cd9f552764f51dc31dc095794ea25aa911027",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^4.6",
+                "phpunit/phpunit": "^8.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Appstract\\Stock\\StockServiceProvider"
+                    ],
+                    "aliases": {
+                        "Alias": "Appstract\\Stock\\StockFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Appstract\\Stock\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gijs Jorissen",
+                    "email": "gijs@appstract.nl",
+                    "homepage": "https://appstract.nl",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Keep stock for Eloquent models",
+            "homepage": "https://github.com/appstract/laravel-stock",
+            "keywords": [
+                "appstract",
+                "laravel-stock"
+            ],
+            "support": {
+                "issues": "https://github.com/appstract/laravel-stock/issues",
+                "source": "https://github.com/appstract/laravel-stock/tree/1.1.1"
+            },
+            "funding": [
+                {
+                    "url": "https://www.patreon.com/appstract",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2020-04-30T12:26:13+00:00"
+        },
         {
             "name": "asm89/stack-cors",
             "version": "v2.0.3",
@@ -170,6 +237,64 @@
                 }
             ],
             "time": "2021-01-20T22:51:39+00:00"
+        },
+        {
+            "name": "coreproc/laravel-wallet-plus",
+            "version": "1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CoreProc/laravel-wallet-plus.git",
+                "reference": "01f04dc96af4ab3e2925e5387ae91c86ae457282"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CoreProc/laravel-wallet-plus/zipball/01f04dc96af4ab3e2925e5387ae91c86ae457282",
+                "reference": "01f04dc96af4ab3e2925e5387ae91c86ae457282",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.2 || ^9.3",
+                "symfony/var-dumper": "^4.3 || ^5.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "CoreProc\\WalletPlus\\WalletPlusServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "CoreProc\\WalletPlus\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chris Bautista",
+                    "email": "chris.bautista@coreproc.ph",
+                    "homepage": "https://coreproc.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Easily add a virtual wallet to your Laravel models. Features multiple wallets and a ledger system to help keep track of all transactions in the wallets.",
+            "homepage": "https://github.com/coreproc/laravel-wallet-plus",
+            "keywords": [
+                "coreproc",
+                "laravel-wallet-plus"
+            ],
+            "support": {
+                "issues": "https://github.com/CoreProc/laravel-wallet-plus/issues",
+                "source": "https://github.com/CoreProc/laravel-wallet-plus/tree/1.4.0"
+            },
+            "time": "2020-10-06T16:22:06+00:00"
         },
         {
             "name": "dasprid/enum",

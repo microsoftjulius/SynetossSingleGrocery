@@ -17,7 +17,7 @@ class BannerController extends Controller
     public function index()
     {
         $getbanner = Banner::join('item','item.id','banner.item_id')
-        ->select('item.item_name','banner.*')->get();
+        ->select('item.item_name','banner.*')->orderBy('banner.id','Desc')->get();
         $getitem = Item::all();
         return view('admin.banner',compact('getbanner','getitem'));
     }
@@ -52,7 +52,9 @@ class BannerController extends Controller
         $request->image->move('images/banner', $image);
 
         $item_id = Item::where('item_name',request()->item_name)->value('id');
-
+        if(empty($item_id)){
+            return redirect()->back()->withErrors("Please select an item from the list")->withInput();
+        }
         $banner = new Banner;
         $banner->image =$image;
         $banner->item_id =$item_id;

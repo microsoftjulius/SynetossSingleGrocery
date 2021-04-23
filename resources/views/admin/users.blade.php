@@ -15,7 +15,7 @@
                 <div class="row card">
                     <div class="col-lg-12 mt-4">
                         <div class="col-lg-12 col-sm-12 col-md-12">
-                            <table id="dtOrderExample" class="table table-responsive table-striped table-bordered table-sm" cellspacing="0" width="100%">
+                            <table id="dtOrderExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
                                         <th class="th-sm">#</th>
