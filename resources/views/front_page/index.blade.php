@@ -120,16 +120,16 @@
                         </div>
                         <div class="col-md-12">
                             <div class="owl-carousel cate-slider owl-theme">
-                                {{-- @foreach ($getcategory as $category) --}}
-                                    <div class="item" style="height:140px">
+                                @foreach ($all_categories as $category)
+                                    <div class="item" style="height:200px">
                                         <a href="#" class="category-item">
                                             <div class="cate-img">
-                                                <img src="{{asset('front_pages/images/banners/offer-5.jpg')}}" alt="">
+                                                <img src="{{asset('images/category/'.$category->image)}}" alt="" style="width:100px; height:100px;">
                                             </div>
-                                            <h4>{{ 'Category Name' }}</h4>
+                                            <h4>{{ $category->category_name }}</h4>
                                         </a>
                                     </div>
-                                {{-- @endforeach --}}
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -152,7 +152,7 @@
                                 {{-- @foreach ($getitem as $item) --}}
                                     <div class="item" style="height: 300px">
                                         <div class="product-item">
-                                            <a href="single_product_view.html" class="product-img">
+                                            <a href="/single_product_view" class="product-img">
                                                 <img src="{{asset('front_pages/images/banners/offer-5.jpg')}}" alt="" style="height:180px">
                                                 <div class="product-absolute-options">
                                                     <span class="offer-badge-1">6% off</span>
@@ -204,7 +204,6 @@
                     </div>
                 </div>
             </div>
-            {{-- @foreach ($distinct_category as $category_item) --}}
                 <div class="section145">
                     <div class="container">
                         <div class="row">
@@ -212,43 +211,44 @@
                                 <div class="main-title-tt">
                                     <div class="main-title-left">
                                         <span>For You</span>
-                                        <h2>{{ 'Category Name' }}</h2>
+                                        <h2>{{ 'Available Categories' }}</h2>
                                     </div>
                                     <a href="#" class="see-more-btn">See All</a>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="owl-carousel featured-slider owl-theme">
-                                    <div class="item">
-                                        <div class="product-item">
-                                            <a href="single_product_view.html" class="product-img">
-                                                <img src="{{asset('front_pages/images/banners/offer-5.jpg')}}" alt="">
-                                                <div class="product-absolute-options">
-                                                    <span class="offer-badge-1">6% off</span>
-                                                    <span class="like-icon" title="wishlist"></span>
-                                                </div>
-                                            </a>
-                                            <div class="product-text-dt">
-                                                <p>Available<span>(In Stock)</span></p>
-                                                <h4>{{ 'Slug' }}</h4>
-                                                <div class="product-price">$12 <span>$15</span></div>
-                                                <div class="qty-cart">
-                                                    <div class="quantity buttons_added">
-                                                        <input type="button" value="-" class="minus minus-btn">
-                                                        <input type="number" step="1" name="quantity" value="1" class="input-text qty text">
-                                                        <input type="button" value="+" class="plus plus-btn">
+                                    @foreach ($item_per_category as $category_item)
+                                        <div class="item" style="height:400px">
+                                            <div class="product-item">
+                                                <a href="/products-of-category/{{ base64_encode($category_item->category_id * $id_multiplier) }}/{{ $random_string }}" class="product-img">
+                                                    <img src="{{asset('images/item/'.$category_item->image)}}" alt="" style="height:200px">
+                                                    <div class="product-absolute-options">
+                                                        <span class="offer-badge-1">6% off</span>
+                                                        <span class="like-icon" title="wishlist"></span>
                                                     </div>
-                                                    <span class="cart-icon"><i class="uil uil-shopping-cart-alt"></i></span>
+                                                </a>
+                                                <div class="product-text-dt">
+                                                    <p>Available<span>(In Stock)</span></p>
+                                                    <h4>{{ $category_item->slug }}</h4>
+                                                    <div class="product-price">$12 <span>$15</span></div>
+                                                    <div class="qty-cart">
+                                                        <div class="quantity buttons_added">
+                                                            <input type="button" value="-" class="minus minus-btn">
+                                                            <input type="number" step="1" name="quantity" value="1" class="input-text qty text">
+                                                            <input type="button" value="+" class="plus plus-btn">
+                                                        </div>
+                                                        <span class="cart-icon"><i class="uil uil-shopping-cart-alt"></i></span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            {{-- @endforeach --}}
             <div class="section145">
                 <div class="container">
                     <div class="row">
@@ -263,11 +263,11 @@
                         </div>
                         <div class="col-md-12">
                             <div class="owl-carousel featured-slider owl-theme">
-                                {{-- @foreach ($exploredata as $item) --}}
-                                    <div class="item">
+                                @foreach ($new_products as $item)
+                                    <div class="item" style="height:500px">
                                         <div class="product-item">
                                             <a href="single_product_view.html" class="product-img">
-                                                <img src="{{asset('front_pages/images/banners/offer-5.jpg')}}" alt="" style="height:200px">
+                                                <img src="{{asset('images/item/'.$item->image)}}" alt="" style="height:200px">
                                                 <div class="product-absolute-options">
                                                     <span class="offer-badge-1">New</span>
                                                     <span class="like-icon" title="wishlist"></span>
@@ -275,8 +275,8 @@
                                             </a>
                                             <div class="product-text-dt">
                                                 <p>Available<span>(In Stock)</span></p>
-                                                <h4>{{ 'Item Name' }}</h4>
-                                                <div class="product-price">${{ 'Price' }} <span>${{ 'Price' }}</span></div>
+                                                <h4>{{ $item->item_name }}</h4>
+                                                <div class="product-price">${{ $item->price }} <span>${{ 'Price' }}</span></div>
                                                 <div class="qty-cart">
                                                     <div class="quantity buttons_added">
                                                         <input type="button" value="-" class="minus minus-btn">
@@ -288,7 +288,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                {{-- @endforeach --}}
+                                @endforeach
                             </div>
                         </div>
                     </div>

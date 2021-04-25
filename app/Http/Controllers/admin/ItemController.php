@@ -12,6 +12,7 @@ use App\Models\ItemImages;
 use App\Models\Variation;
 use App\Models\Cart;
 use Validator;
+use Illuminate\Support\Str;
 
 class ItemController extends Controller
 {
@@ -82,7 +83,6 @@ class ItemController extends Controller
             // $pricearray = explode(',', $request->price);
             // $weightarray = explode(',', $request->weight);
                 $item = new Item;
-                        
                 $item->category_id =$request->category_id;
                 $item->item_name =$request->item_name;
                 $item->brand =$request->brand;
@@ -91,7 +91,7 @@ class ItemController extends Controller
                 $item->ingredient_type =$request->ingredient_type;
                 $item->item_description =$request->description;
                 $item->delivery_time =$request->delivery_time;
-                $item->slug =\Str::slug($request->category_name);
+                $item->slug = Str::slug($request->item_name, '-');
                 $item->save();
 
                 $price = $request->price;

@@ -25,6 +25,7 @@ use App\Http\Controllers\admin\MarketingController;
 use App\Http\Controllers\admin\NewsLetterSubscriberController;
 use App\Http\Controllers\admin\MailMarketingController;
 use App\Http\Controllers\HomeController as Home;
+use App\Http\Controllers\front\CategoryController as CatController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,6 +42,7 @@ use App\Http\Controllers\HomeController as Home;
      */
     Route::get('/', [HomeController::Class, 'index'])->name('Synetoss Grocery');
     Route::get('/new-products', [HomeController::Class, 'getNewProducts'])->name('New Products');
+    Route::get('/products-of-category/{category_id}/{fake_id}',[CatController::Class, 'getAllCategoryItems'])->name('Similar Items');
     Route::get('/featured-products', [HomeController::Class, 'getFeaturedProducts'])->name('Featured Products');
     Route::get('/dashboard_overview', function(){ return view('front_page.dashboard');})->name('Dashboard Overview');
     Route::get('/about_us', function(){ return view('front_page.about');})->name('About Us');

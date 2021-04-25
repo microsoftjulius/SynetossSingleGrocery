@@ -52,12 +52,7 @@
                                                 {{ number_format($item->variation[0]->price) }}
                                             </td>
                                             <td>
-                                                @if($item->item_status == 1)    
-                                                {{ 'Available' }}
-                                                @else
-                                                {{ 'Out of Stock' }}
-                                                @endif
-                                            
+                                                {{ $item->item_status }}                                            
                                             </td>
                                             <td>
                                                 <a href="/customers/edit/{{ $item->id}}"><button class="btn btn-sm btn-primary"> <i class="fa fa-edit"></i></button></a>

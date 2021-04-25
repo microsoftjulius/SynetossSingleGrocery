@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Appstract\Stock\HasStock;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Item extends Model
 {
     use HasStock;
+    use Sluggable;
     
     protected $table='item';
     protected $fillable=['category_id','item_name','item_description','delivery_time'];
@@ -34,5 +36,14 @@ class Item extends Model
 
     public function addons(){
         return $this->hasMany('App\Models\Addons','item_id','id')->select('id','name','price','item_id')->where('is_available','=','1');
+    }
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'category_name'
+            ]
+        ];
     }
 }

@@ -8,6 +8,7 @@
         "php": "^7.3|^8.0",
         "appstract/laravel-stock": "^1.1",
         "coreproc/laravel-wallet-plus": "^1.4",
+        "cviebrock/eloquent-sluggable": "^8.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",

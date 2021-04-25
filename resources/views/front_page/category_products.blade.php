@@ -384,7 +384,7 @@
                         <div class="col-lg-12">
                             <div class="product-top-dt">
                                 <div class="product-left-title">
-                                    <h2>New Products</h2>
+                                    <h2>{{ $category_name }}</h2>
                                 </div>
                                 <a href="#" class="filter-btn pull-bs-canvas-right">Filters</a>
                                 <div class="product-sort">
@@ -408,11 +408,11 @@
                     </div>
                     <div class="product-list-view">
                         <div class="row">
-                            @foreach ($new_products as $data)
+                            @foreach ($all_items_of_similar_category as $similar_category)
                                 <div class="col-lg-3 col-md-6">
                                     <div class="product-item mb-30" style="height:400px">
-                                        <a href="single_product_view.html" class="product-img">
-                                            <img src="{{asset('front_pages/images/banners/offer-5.jpg')}}" alt="" style="height: 200px">
+                                        <a href="" class="product-img">
+                                            <img src="{{asset('images/item/'.$similar_category->image)}}" alt="" style="height: 200px">
                                             <div class="product-absolute-options">
                                                 <span class="offer-badge-1">6% off</span>
                                                 <span class="like-icon" title="wishlist"></span>
@@ -420,8 +420,8 @@
                                         </a>
                                         <div class="product-text-dt">
                                             <p>Available<span>(In Stock)</span></p>
-                                            <h4>{{ 'date' }}</h4>
-                                            <div class="product-price">$12 <span>$15</span></div>
+                                            <h4>{{ $similar_category->item_name }}</h4>
+                                            <div class="product-price">${{ $similar_category->price }} <span>${{ $similar_category->price * 5 }}</span></div>
                                             <div class="qty-cart">
                                                 <div class="quantity buttons_added">
                                                     <input type="button" value="-" class="minus minus-btn">
