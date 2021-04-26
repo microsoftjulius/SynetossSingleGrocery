@@ -26,6 +26,10 @@ use App\Http\Controllers\admin\NewsLetterSubscriberController;
 use App\Http\Controllers\admin\MailMarketingController;
 use App\Http\Controllers\HomeController as Home;
 use App\Http\Controllers\front\CategoryController as CatController;
+use App\Http\Controllers\front\ItemController as ItemFrontController;
+use App\Http\Controllers\front\NewProductsController;
+use App\Http\Controllers\front\FeaturedItemsController;
+use App\Http\Controllers\front\ClientShoppingCartController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,9 +45,10 @@ use App\Http\Controllers\front\CategoryController as CatController;
      * Front Pages
      */
     Route::get('/', [HomeController::Class, 'index'])->name('Synetoss Grocery');
-    Route::get('/new-products', [HomeController::Class, 'getNewProducts'])->name('New Products');
+    Route::get('/new-products', [NewProductsController::Class, 'getNewProducts'])->name('New Products');
     Route::get('/products-of-category/{category_id}/{fake_id}',[CatController::Class, 'getAllCategoryItems'])->name('Similar Items');
-    Route::get('/featured-products', [HomeController::Class, 'getFeaturedProducts'])->name('Featured Products');
+    Route::get('/check-product/{item_id}/{fake_id}',[ItemFrontController::Class, 'viewNewProductSingle'])->name('Single Product');
+    Route::get('/featured-products', [FeaturedItemsController::Class, 'getFeaturedProducts'])->name('Featured Products');
     Route::get('/dashboard_overview', function(){ return view('front_page.dashboard');})->name('Dashboard Overview');
     Route::get('/about_us', function(){ return view('front_page.about');})->name('About Us');
     Route::get('/our_blog', function(){ return view('front_page.our-blog');})->name('Our Blog');
@@ -112,6 +117,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/my-profile', function() { return view('admin.profile');})->name('Profile');
 });
 
+Route::prefix('cart')->group(function () {
+    Route::get('/add-item-to-cart/{item_id}',[ClientShoppingCartController::Class, 'addItemToCart']);
+});
 
 Auth::routes();
 

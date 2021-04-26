@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Cart extends Migration
+class AddColumnSessionIdToShoppingCart extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class Cart extends Migration
      */
     public function up()
     {
-        Schema::create('shopping_cart', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->nullable()->index();
-            $table->foreignid('item_id');
-            $table->integer('quantity');
-            $table->timestamps();
+        Schema::table('shopping_cart', function (Blueprint $table) {
+            $table->string('session_id')->after('user_id');
         });
     }
 
@@ -29,6 +25,8 @@ class Cart extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shopping_cart');
+        Schema::table('shopping_cart', function (Blueprint $table) {
+            //
+        });
     }
 }

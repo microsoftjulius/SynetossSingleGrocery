@@ -12,7 +12,7 @@ class Item extends Model
     use Sluggable;
     
     protected $table='item';
-    protected $fillable=['category_id','item_name','item_description','delivery_time'];
+    protected $fillable=['category_id','item_name','item_description','delivery_time','clicks'];
 
     public function category(){
         return $this->hasOne('App\Models\Category','id','category_id');

@@ -20,18 +20,31 @@ use Auth;
 
 class HomeController extends Controller
 {
+
+    /**
+     * Creating an instance of the client elements in cart so that we can access the showUsersCart method
+     */
+    public function __construct(){
+        $this->users_elements_in_cart = new ClientShoppingCartController;
+    }
     /**
      * this function returns the 
      * 1. Categories that have been created and are active
      */
-    public function index()
+    public function index(Request $request)
     {
         $all_categories     = $this->getAvailableCategories();
         $item_per_category  = $this->getItemFromEachCategory();
         $id_multiplier      = env('ID_MULTIPLIER');
         $random_string      = sha1(base64_encode($this->generateRandomString()));
         $new_products       = $this->getLatestUploadedItems();
-        return view('front_page.index',compact('all_categories','item_per_category','id_multiplier','random_string','new_products'));
+        $user_cart          = $this->users_elements_in_cart->showUsersCart($request->session()->getId());
+        $items_in_cart      = $this->users_elements_in_cart->getUsersItemsInCart($request->session()->getId());
+        $total_amount       = $this->users_elements_in_cart->calculateTotalAmount($request->session()->getId());
+        $delivery_charges   = $this->users_elements_in_cart->getDeleveryCharges();
+        $total_saving       = $this->users_elements_in_cart->calculateTotalSaving($request->session()->getId());
+        return view('front_page.index',compact('all_categories','item_per_category','id_multiplier',
+            'random_string','new_products','user_cart','items_in_cart','total_amount','delivery_charges','total_saving'));
     }
 
     /**
@@ -67,7 +80,10 @@ class HomeController extends Controller
      */
     private function getLatestUploadedItems(){
         return Item::join('item_images','item_images.item_id','item.id')->join('variation','item.id','variation.item_id')
-        ->latest('item.created_at')->take(4)->get();
+        ->latest('item.created_at')
+        ->select('item.*','item_images.image','variation.item_id','variation.price','variation.weight','variation.stock',
+            'variation.variation_id','variation.discount')
+        ->take(4)->get();
     }
 
 
@@ -102,18 +118,4 @@ class HomeController extends Controller
         }
     }
 
-    /**
-     * this function gets the new products
-     */
-    protected function getNewProducts(){
-        $new_products = Item::latest('id')->take('12')->get();
-        return view('front_page.new-products',compact('new_products'));
-    }
-
-    /**
-     * this function gets the featured products
-     */
-    protected function getFeaturedProducts(){
-        return view('front_page.featured-products');
-    }
 }

@@ -411,17 +411,17 @@
                             @foreach ($new_products as $data)
                                 <div class="col-lg-3 col-md-6">
                                     <div class="product-item mb-30" style="height:400px">
-                                        <a href="single_product_view.html" class="product-img">
-                                            <img src="{{asset('front_pages/images/banners/offer-5.jpg')}}" alt="" style="height: 200px">
+                                        <a href="/check-product/{{ base64_encode($data->id * $id_multiplier) }}/{{ $random_string }}" class="product-img">
+                                            <img src="{{asset('images/item/'.$data->image)}}" alt="" style="height: 200px">
                                             <div class="product-absolute-options">
-                                                <span class="offer-badge-1">6% off</span>
+                                                <span class="offer-badge-1">{{ $data->discount }}% off</span>
                                                 <span class="like-icon" title="wishlist"></span>
                                             </div>
                                         </a>
                                         <div class="product-text-dt">
                                             <p>Available<span>(In Stock)</span></p>
-                                            <h4>{{ 'date' }}</h4>
-                                            <div class="product-price">$12 <span>$15</span></div>
+                                            <h4>{{ $data->created_at->diffForHumans()}}</h4>
+                                            <div class="product-price">${{ number_format($data->price - ($data->price * $data->discount))}} <span>${{ number_format($data->price) }}</span></div>
                                             <div class="qty-cart">
                                                 <div class="quantity buttons_added">
                                                     <input type="button" value="-" class="minus minus-btn">
@@ -434,11 +434,11 @@
                                     </div>
                                 </div>
                             @endforeach
-                            <div class="col-md-12">
+                            {{-- <div class="col-md-12">
                                 <div class="more-product-btn">
                                     <button class="show-more-btn hover-btn" onclick="window.location.href = '#';">Show More</button>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>

@@ -116,8 +116,8 @@
                     <a href="#" class="cart-checkout-btn hover-btn">Proceed to Checkout</a>
                 </div>
             </div>
-         </div>
-         <div class="bs-canvas bs-canvas-right position-fixed bg-cart h-100">
+        </div>
+        <div class="bs-canvas bs-canvas-right position-fixed bg-cart h-100">
             <div class="bs-canvas-header side-cart-header p-3 ">
                 <div class="d-inline-block  main-cart-title">Filters</div>
                 <button type="button" class="bs-canvas-close close" aria-label="Close"><i class="uil uil-multiply"></i></button>
@@ -417,39 +417,7 @@
                         </div>
                     </div>
                     <div class="product-list-view">
-                        <div class="row">
-                            {{-- @foreach ($getitem as $item) --}}
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="product-item mb-30" style="height:400px">
-                                        <a href="single_product_view.html" class="product-img">
-                                            <img src="{{asset('front_pages/images/banners/offer-5.jpg')}}" alt="" style="height: 200px">
-                                            <div class="product-absolute-options">
-                                                <span class="offer-badge-1">6% off</span>
-                                                <span class="like-icon" title="wishlist"></span>
-                                            </div>
-                                        </a>
-                                        <div class="product-text-dt">
-                                            <p>Available<span>(In Stock)</span></p>
-                                            <h4>{{ 'Item Name' }}</h4>
-                                            <div class="product-price">$12 <span>$15</span></div>
-                                            <div class="qty-cart">
-                                                <div class="quantity buttons_added">
-                                                    <input type="button" value="-" class="minus minus-btn">
-                                                    <input type="number" step="1" name="quantity" value="1" class="input-text qty text">
-                                                    <input type="button" value="+" class="plus plus-btn">
-                                                </div>
-                                                <span class="cart-icon"><i class="uil uil-shopping-cart-alt"></i></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            {{-- @endforeach --}}
-                            <div class="col-md-12">
-                                <div class="more-product-btn">
-                                    <button class="show-more-btn hover-btn" onclick="window.location.href = '#';">Show More</button>
-                                </div>
-                            </div>
-                        </div>
+                        @include('front_layout.featured_items')
                     </div>
                 </div>
             </div>

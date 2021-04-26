@@ -414,14 +414,14 @@
                                         <a href="" class="product-img">
                                             <img src="{{asset('images/item/'.$similar_category->image)}}" alt="" style="height: 200px">
                                             <div class="product-absolute-options">
-                                                <span class="offer-badge-1">6% off</span>
+                                                <span class="offer-badge-1">{{ $similar_category->discount }}% off</span>
                                                 <span class="like-icon" title="wishlist"></span>
                                             </div>
                                         </a>
                                         <div class="product-text-dt">
                                             <p>Available<span>(In Stock)</span></p>
                                             <h4>{{ $similar_category->item_name }}</h4>
-                                            <div class="product-price">${{ $similar_category->price }} <span>${{ $similar_category->price * 5 }}</span></div>
+                                            <div class="product-price">${{ $similar_category->price - ($similar_category->price * $similar_category->discount) }} <span>${{ $similar_category->price }}</span></div>
                                             <div class="qty-cart">
                                                 <div class="quantity buttons_added">
                                                     <input type="button" value="-" class="minus minus-btn">

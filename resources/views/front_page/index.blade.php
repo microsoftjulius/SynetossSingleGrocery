@@ -21,6 +21,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
+                            @include('layouts.admin-partials.messages')
                             <div class="owl-carousel offers-banner owl-theme">
                                 <div class="item">
                                     <div class="offer-item">
@@ -147,36 +148,7 @@
                                 <a href="#" class="see-more-btn">See All</a>
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <div class="owl-carousel featured-slider owl-theme">
-                                {{-- @foreach ($getitem as $item) --}}
-                                    <div class="item" style="height: 300px">
-                                        <div class="product-item">
-                                            <a href="/single_product_view" class="product-img">
-                                                <img src="{{asset('front_pages/images/banners/offer-5.jpg')}}" alt="" style="height:180px">
-                                                <div class="product-absolute-options">
-                                                    <span class="offer-badge-1">6% off</span>
-                                                    <span class="like-icon" title="wishlist"></span>
-                                                </div>
-                                            </a>
-                                            <div class="product-text-dt">
-                                                <p>Available<span>(In Stock)</span></p>
-                                                <h4>{{ 'Item Name' }}</h4>
-                                                <div class="product-price">$12 <span>$15</span></div>
-                                                <div class="qty-cart">
-                                                    <div class="quantity buttons_added">
-                                                        <input type="button" value="-" class="minus minus-btn">
-                                                        <input type="number" step="1" name="quantity" value="1" class="input-text qty text">
-                                                        <input type="button" value="+" class="plus plus-btn">
-                                                    </div>
-                                                    <span class="cart-icon"><i class="uil uil-shopping-cart-alt"></i></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                {{-- @endforeach --}}
-                            </div>
-                        </div>
+                        @include('front_layout.featured_items')
                     </div>
                 </div>
             </div>
@@ -224,22 +196,20 @@
                                                 <a href="/products-of-category/{{ base64_encode($category_item->category_id * $id_multiplier) }}/{{ $random_string }}" class="product-img">
                                                     <img src="{{asset('images/item/'.$category_item->image)}}" alt="" style="height:200px">
                                                     <div class="product-absolute-options">
-                                                        <span class="offer-badge-1">6% off</span>
+                                                        {{-- <span class="offer-badge-1">{{ $category_item->discount * 100 }}% off</span> --}}
                                                         <span class="like-icon" title="wishlist"></span>
                                                     </div>
                                                 </a>
                                                 <div class="product-text-dt">
                                                     <p>Available<span>(In Stock)</span></p>
                                                     <h4>{{ $category_item->slug }}</h4>
-                                                    <div class="product-price">$12 <span>$15</span></div>
-                                                    <div class="qty-cart">
+                                                    {{-- <div class="qty-cart">
                                                         <div class="quantity buttons_added">
                                                             <input type="button" value="-" class="minus minus-btn">
                                                             <input type="number" step="1" name="quantity" value="1" class="input-text qty text">
                                                             <input type="button" value="+" class="plus plus-btn">
                                                         </div>
-                                                        <span class="cart-icon"><i class="uil uil-shopping-cart-alt"></i></span>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -266,24 +236,24 @@
                                 @foreach ($new_products as $item)
                                     <div class="item" style="height:500px">
                                         <div class="product-item">
-                                            <a href="single_product_view.html" class="product-img">
+                                            <a href="/check-product/{{ base64_encode($item->id * $id_multiplier) }}/{{ $random_string }}" class="product-img">
                                                 <img src="{{asset('images/item/'.$item->image)}}" alt="" style="height:200px">
                                                 <div class="product-absolute-options">
                                                     <span class="offer-badge-1">New</span>
                                                     <span class="like-icon" title="wishlist"></span>
                                                 </div>
                                             </a>
-                                            <div class="product-text-dt">
+                                            <div class="product-text-dt" style="height: 130px">
                                                 <p>Available<span>(In Stock)</span></p>
                                                 <h4>{{ $item->item_name }}</h4>
-                                                <div class="product-price">${{ $item->price }} <span>${{ 'Price' }}</span></div>
+                                                <div class="product-price">${{ $item->price - ($item->price * $item->discount)}} <span>${{ $item->price }}</span></div>
                                                 <div class="qty-cart">
                                                     <div class="quantity buttons_added">
                                                         <input type="button" value="-" class="minus minus-btn">
                                                         <input type="number" step="1" name="quantity" value="1" class="input-text qty text">
                                                         <input type="button" value="+" class="plus plus-btn">
                                                     </div>
-                                                    <span class="cart-icon"><i class="uil uil-shopping-cart-alt"></i></span>
+                                                    <span class="cart-icon"><a href="/cart/add-item-to-cart/{{ $item->item_id }}"><i class="uil uil-shopping-cart-alt"></i></a></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -297,6 +267,35 @@
         </div>
         @include('front_layout.footer')
         @include('front_layout.javascript')
+
+        {{-- <script src="http://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous">
+        </script> --}}
+        <script>
+                jQuery(document).ready(function(){
+                    jQuery('#ajaxSubmit').click(function(e){
+                        alert("Button clicked");
+                    e.preventDefault();
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                        }
+                    });
+                    jQuery.ajax({
+                        url: "{{ url('/grocery/post') }}",
+                        method: 'post',
+                        data: {
+                            name: jQuery('#name').val(),
+                            type: jQuery('#type').val(),
+                            price: jQuery('#price').val()
+                        },
+                        success: function(result){
+                            console.log(result);
+                        }});
+                    });
+                    });
+        </script>
     </body>
 </html>
 
