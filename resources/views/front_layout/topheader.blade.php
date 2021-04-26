@@ -75,7 +75,13 @@
                 <li class="ui dropdown">
                     <a href="#" class="opts_account">
                     <img src="{{ asset('front_pages/images/avatar/img-5.jpg')}}" alt="">
-                    <span class="user__name">John Doe</span>
+                    <span class="user__name">
+                        @if(empty(auth()->user()->name))
+                            {{ 'Account' }}
+                        @else
+                            {{ auth()->user()->name }}
+                        @endif
+                    </span>
                     <i class="uil uil-angle-down"></i>
                     </a>
                     <div class="menu dropdown_account">
@@ -94,7 +100,12 @@
                         <a href="/dashboard_my_addresses" class="item channel_item"><i class="uil uil-location-point icon__1"></i>My Address</a>
                         <a href="/offers" class="item channel_item"><i class="uil uil-gift icon__1"></i>Offers</a>
                         <a href="/faq" class="item channel_item"><i class="uil uil-info-circle icon__1"></i>Faq</a>
-                        <a href="/sign_in" class="item channel_item"><i class="uil uil-lock-alt icon__1"></i>Logout</a>
+                        @if(empty(auth()->user()->name))
+                        <a href="/login" class="item channel_item"><i class="uil uil-lock-alt icon__1"></i>Login</a>
+                        @else
+                        <a href="/logoutUser" class="item channel_item"><i class="uil uil-lock-alt icon__1"></i>Logout</a>
+                        @endif
+
                     </div>
                 </li>
             </ul>

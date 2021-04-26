@@ -68,7 +68,7 @@
             </div>
             <div class="checkout-cart">
                 <a href="#" class="promo-code">Have a promocode?</a>
-                <a href="#" class="cart-checkout-btn hover-btn">Proceed to Checkout</a>
+                <a href="/checkout" class="cart-checkout-btn hover-btn">Proceed to Checkout</a>
             </div>
         </div>
     </div>

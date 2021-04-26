@@ -17,8 +17,6 @@
                         <div class="menu dropdown_page">
                             <a href="/dashboard_overview" class="item channel_item page__links">Account</a>
                             <a href="/about_us" class="item channel_item page__links">About Us</a>
-                            <a href="/new-products" class="item channel_item page__links">Shop Grid</a>
-                            <a href="/single_product_view" class="item channel_item page__links">Single Product View</a>
                             <a href="/checkout" class="item channel_item page__links">Checkout</a>
                             <a href="/request_product" class="item channel_item page__links">Product Request</a>
                             <a href="/order_placed" class="item channel_item page__links">Order Placed</a>
@@ -35,15 +33,7 @@
                         <a class="nav-link" title="Blog">Blog <i class="uil uil-angle-down"></i></a>
                         <div class="menu dropdown_page">
                             <a href="/our_blog" class="item channel_item page__links">Our Blog</a>
-                            {{--
-                            <a href="blog_no_sidebar.html" class="item channel_item page__links">Our Blog Two No Sidebar</a>
-                            <a href="blog_left_sidebar.html" class="item channel_item page__links">Our Blog with Left Sidebar</a>
-                            <a href="blog_right_sidebar.html" class="item channel_item page__links">Our Blog with Right Sidebar</a>
-                            --}}
                             <a href="/blog_detail_view" class="item channel_item page__links">Blog Details View</a>
-                            {{--
-                            <a href="blog_left_sidebar_single_view.html" class="item channel_item page__links">Blog Detail View with Sidebar</a>
-                            --}}
                         </div>
                     </div>
                 </li>

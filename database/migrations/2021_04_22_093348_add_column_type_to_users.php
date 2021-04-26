@@ -19,7 +19,7 @@ class AddColumnTypeToUsers extends Migration
             $table->string('login_type')->nullable();
             $table->text('google_id')->nullable();
             $table->text('facebook_id')->nullable();
-            $table->integer('type');
+            $table->integer('type')->default(2); //1 for Admin, 2 for Customer
             $table->string('tax')->nullable();
             $table->string('delivery_charge')->nullable();
             $table->string('currency')->nullable();

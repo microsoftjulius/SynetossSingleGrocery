@@ -15,17 +15,20 @@ class ClientShoppingCartController extends Controller
      */
     protected function addItemToCart(Request $request, $item_id){
         @$user_id = Auth::user()->id;
+        if(Cart::where('session_id',$request->session()->getId())->exists()){
+            $user_id = Cart::where('session_id',$request->session()->getId())->value('user_id');
+        }
         if(Cart::where('session_id',$request->session()->getId())->where('item_id',$item_id)->exists()){
-            return $this->incrementUserCart($item_id, $request->session()->getId());
+            return $this->incrementUserCart($item_id, $request->session()->getId(), $user_id);
         }else{
-            return $this->createNewItemToCart($item_id, $request->session()->getId());
+            return $this->createNewItemToCart($item_id, $request->session()->getId(), $user_id);
         }
     }
 
     /**
      * this function creates a new item to cart
      */
-    private function createNewItemToCart($item_id, $session_id){
+    private function createNewItemToCart($item_id, $session_id, $user_id){
         $cart_item = array(
             'user_id'       => @$user_id,
             'session_id'    => $session_id,
@@ -40,18 +43,29 @@ class ClientShoppingCartController extends Controller
      * this function increments the users cart, 
      * the cart can only be incremented when the product already exists for this user
      */
-    private function incrementUserCart($item_id, $session_id){
+    private function incrementUserCart($item_id, $session_id, $user_id){
         $increment = request()->value;
         if(empty($increment)){
             $increment = 1;
         }
-        $incremented_cart_quantity = Cart::where('session_id',$session_id)->where('item_id',$item_id)->value('quantity') + $increment;
-        Cart::where('session_id',$session_id)->where('item_id',$item_id)->update(
-            array(
-                'user_id' => @auth()->user()->id,
-                'quantity' => $incremented_cart_quantity
-            )
-        );
+        if(empty(@auth()->user()->id)){
+            $incremented_cart_quantity = Cart::where('session_id',$session_id)->where('item_id',$item_id)->value('quantity') + $increment;
+            Cart::where('session_id',$session_id)->where('item_id',$item_id)->update(
+                array(
+                    'user_id' => $user_id,
+                    'quantity' => $incremented_cart_quantity
+                )
+            );
+        }else{
+            $incremented_cart_quantity = Cart::where('user_id',@auth()->user()->id)->where('item_id',$item_id)->value('quantity') + $increment;
+            Cart::where('user_id',@auth()->user()->id)->where('item_id',$item_id)->update(
+                array(
+                    'user_id' => $user_id,
+                    'quantity' => $incremented_cart_quantity
+                )
+            );
+        }
+        
         return redirect()->back()->with('msg','Number Of Items in your cart incremented successfully');
     }
 
@@ -61,7 +75,11 @@ class ClientShoppingCartController extends Controller
      * this function is public because it can bew viewed from every where
      */
     public function showUsersCart($session_id){
-        $items_in_cart = Cart::where('session_id',$session_id)->sum('quantity');
+        if(empty(@auth()->user()->id)){
+            $items_in_cart = Cart::where('session_id',$session_id)->sum('quantity');
+        }else{
+            $items_in_cart = Cart::where('user_id',@auth()->user()->id)->sum('quantity');
+        }
         return $items_in_cart;
     }
     
@@ -69,11 +87,20 @@ class ClientShoppingCartController extends Controller
      * this function gets the Items in cart for the current user, its public because it can be accessed from other classes
      */
     public function getUsersItemsInCart($session_id){
-        $user_items_in_Cart = Cart::where('session_id',$session_id)
-        ->join('item','item.id','shopping_cart.item_id')
-        ->join('variation','variation.item_id','item.id')
-        ->join('item_images','item_images.item_id','item.id')
-        ->get();
+        if(empty(@auth()->user()->id)){
+            $user_items_in_Cart = Cart::where('session_id',$session_id)
+            ->join('item','item.id','shopping_cart.item_id')
+            ->join('variation','variation.item_id','item.id')
+            ->join('item_images','item_images.item_id','item.id')
+            ->get();
+        }else{
+            $user_items_in_Cart = Cart::where('user_id',@auth()->user()->id)
+            ->join('item','item.id','shopping_cart.item_id')
+            ->join('variation','variation.item_id','item.id')
+            ->join('item_images','item_images.item_id','item.id')
+            ->get();
+        }
+        
         return $user_items_in_Cart;
     }
 

@@ -15,15 +15,13 @@
         @include('front_layout.search_modal')
         @include('front_layout.cart-toggle')
         <header class="header clearfix">
-                    @include('front_layout.topheader')
-                    @include('front_layout.menu')
-                </div>
-            </div>
+                @include('front_layout.topheader')
+                @include('front_layout.menu')
         </header>
         <div class="wrapper">
             <div class="gambo-Breadcrumb">
                 <div class="container">
-                   @include('front_layout.breadcrumb')
+                    @include('front_layout.breadcrumb')
                 </div>
             </div>
             <div class="dashboard-group">
@@ -38,7 +36,7 @@
                                         <label for="file"><i class="uil uil-camera-plus"></i></label>
                                     </div>
                                 </div>
-                                <h4>Johe Doe</h4>
+                                <h4>{{ auth()->user()->name }}</h4>
                                 <p>+91999999999<a href="#"><i class="uil uil-edit"></i></a></p>
                                 <div class="earn-points"><img src="{{asset('front_pages/images/Dollar.svg')}}" alt="">Points : <span>20</span></div>
                             </div>
@@ -60,7 +58,7 @@
                                             <h4><i class="uil uil-apps"></i>Overview</h4>
                                         </div>
                                         <div class="welcome-text">
-                                            <h2>Hi! John Doe</h2>
+                                            <h2>Hi! {{ auth()->user()->name }}</h2>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-12">
@@ -94,13 +92,13 @@
                                                 <h4>My Orders</h4>
                                             </div>
                                             <div class="ddsh-body">
-                                                <h2>2 Recently Purchases</h2>
+                                                <h2>{{ $user_cart }} Recently Purchases</h2>
                                                 <ul class="order-list-145">
                                                     <li>
                                                         <div class="smll-history">
-                                                            <div class="order-title">2 Items <span data-inverted="" data-tooltip="2kg broccoli, 1kg Apple" data-position="top center">?</span></div>
+                                                            <div class="order-title">{{ $user_cart }} Items <span data-inverted="" data-tooltip="2kg broccoli, 1kg Apple" data-position="top center">?</span></div>
                                                             <div class="order-status">On the way</div>
-                                                            <p>$22</p>
+                                                            <p>${{ $total_amount + $delivery_charges }}</p>
                                                         </div>
                                                     </li>
                                                 </ul>

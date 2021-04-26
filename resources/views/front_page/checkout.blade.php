@@ -15,8 +15,6 @@
         <header class="header clearfix">
             @include('front_layout.topheader')
             @include('front_layout.menu')
-            </div>
-            </div>
         </header>
         <div class="wrapper">
             <div class="gambo-Breadcrumb">
@@ -26,6 +24,7 @@
             </div>
             <div class="all-product-grid">
                 <div class="container">
+                    @include('layouts.admin-partials.messages')
                     <div class="row">
                         <div class="col-lg-8 col-md-7">
                             <div id="checkout_wizard" class="checkout accordion left-chck145">
@@ -96,20 +95,20 @@
                                             <div class="checout-address-step">
                                                 <div class="row">
                                                     <div class="col-lg-12">
-                                                        <form class="">
+                                                        <form class="" action="/save-client-delivery-address" method="GET">
                                                             <div class="form-group">
                                                                 <div class="product-radio">
                                                                     <ul class="product-now">
                                                                         <li>
-                                                                            <input type="radio" id="ad1" name="address1" checked>
+                                                                            <input type="radio" id="ad1" name="address" value="home" checked>
                                                                             <label for="ad1">Home</label>
                                                                         </li>
                                                                         <li>
-                                                                            <input type="radio" id="ad2" name="address1">
+                                                                            <input type="radio" id="ad2" name="address" value="office">
                                                                             <label for="ad2">Office</label>
                                                                         </li>
                                                                         <li>
-                                                                            <input type="radio" id="ad3" name="address1">
+                                                                            <input type="radio" id="ad3" name="address" value="other">
                                                                             <label for="ad3">Other</label>
                                                                         </li>
                                                                     </ul>
@@ -126,10 +125,16 @@
                                                                     <div class="col-lg-6 col-md-12">
                                                                         <div class="form-group">
                                                                             <label class="control-label">Email Address*</label>
-                                                                            <input id="email1" name="email1" type="text" placeholder="Email Address" class="form-control input-md" required="">
+                                                                            <input id="email1" name="email" type="email" placeholder="Email Address" class="form-control input-md" required="">
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-lg-12 col-md-12">
+                                                                    <div class="col-lg-6 col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Password *</label>
+                                                                            <input id="password" name="password" type="password" placeholder="password" class="form-control input-md" required="">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-6 col-md-6">
                                                                         <div class="form-group">
                                                                             <label class="control-label">Flat / House / Office No.*</label>
                                                                             <input id="flat" name="flat" type="text" placeholder="Address" class="form-control input-md" required="">
@@ -399,36 +404,38 @@
                                 <div class="pdpt-title">
                                     <h4>Order Summary</h4>
                                 </div>
-                                <div class="right-cart-dt-body">
-                                    <div class="cart-item border_radius">
-                                        <div class="cart-product-img">
-                                            <img src="{{asset('front_pages/images/product/img-11.jpg')}}" alt="">
-                                            <div class="offer-badge">4% OFF</div>
-                                        </div>
-                                        <div class="cart-text">
-                                            <h4>Product Title Here</h4>
-                                            <div class="cart-item-price">$15 <span>$18</span></div>
-                                            <button type="button" class="cart-close-btn"><i class="uil uil-multiply"></i></button>
+                                @foreach ($items_in_cart as $item)
+                                    <div class="right-cart-dt-body">
+                                        <div class="cart-item border_radius">
+                                            <div class="cart-product-img">
+                                                <img src="{{asset('images/item/'.$item->image)}}" alt="">
+                                                <div class="offer-badge">{{ $item->discount * 100 }}% OFF</div>
+                                            </div>
+                                            <div class="cart-text">
+                                                <h4>{{ $item->item_name }}</h4>
+                                                <div class="cart-item-price">${{ ($item->price - ($item->price * $item->discount)) * $item->quantity }} <span>${{ $item->price * $item->quantity}}</span></div>
+                                                <button type="button" class="cart-close-btn"><i class="uil uil-multiply"></i></button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endforeach
                                 <div class="total-checkout-group">
                                     <div class="cart-total-dil">
-                                        <h4>Gambo Super Market</h4>
-                                        <span>$15</span>
+                                        <h4>Price</h4>
+                                        <span>${{ $total_amount }}</span>
                                     </div>
                                     <div class="cart-total-dil pt-3">
                                         <h4>Delivery Charges</h4>
-                                        <span>$1</span>
+                                        <span>${{ $delivery_charges }}</span>
                                     </div>
                                 </div>
                                 <div class="cart-total-dil saving-total ">
                                     <h4>Total Saving</h4>
-                                    <span>$3</span>
+                                    <span>${{ $total_saving }}</span>
                                 </div>
                                 <div class="main-total-cart">
                                     <h2>Total</h2>
-                                    <span>$16</span>
+                                    <span>${{ $total_amount + $delivery_charges }}</span>
                                 </div>
                                 <div class="payment-secure">
                                     <i class="uil uil-padlock"></i>Secure checkout
