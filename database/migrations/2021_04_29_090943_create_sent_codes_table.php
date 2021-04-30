@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClientOrdersTable extends Migration
+class CreateSentCodesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateClientOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('client_orders', function (Blueprint $table) {
+        Schema::create('sent_codes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('cart_id');
+            $table->string('users_email');
+            $table->string('sent_code');
+            $table->enum('status',['verified','pending'])->default('pending');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateClientOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('client_orders');
+        Schema::dropIfExists('sent_codes');
     }
 }

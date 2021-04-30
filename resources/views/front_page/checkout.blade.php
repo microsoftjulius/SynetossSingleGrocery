@@ -32,53 +32,54 @@
                                     <div class="checkout-card" id="headingOne">
                                         <span class="checkout-step-number">1</span>
                                         <h4 class="checkout-step-title">
-                                            <button class="wizard-btn" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"> Phone Number Verification</button>
+                                            <button class="wizard-btn" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"> Email Verification</button>
                                         </h4>
                                     </div>
                                     <div id="collapseOne" class="collapse in show" data-parent="#checkout_wizard">
                                         <div class="checkout-step-body">
-                                            <p>We need your phone number so we can inform you about any delay or problem.</p>
-                                            <p class="phn145">4 digits code send your phone <span>+918437176189</span><a class="edit-no-btn hover-btn" data-toggle="collapse" href="#edit-number">Edit</a></p>
+                                            <p>We need your email so we can inform you about any delay or problem.</p>
+                                            <p class="phn145">4 digits code send your email <span></span><a class="edit-no-btn hover-btn" data-toggle="collapse" href="#edit-number">Edit</a></p>
                                             <div class="collapse" id="edit-number">
                                                 <div class="row">
                                                     <div class="col-lg-8">
                                                         <div class="checkout-login">
-                                                            <form>
-                                                                <div class="login-phone">
-                                                                    <input type="text" class="form-control" placeholder="Phone Number">
-                                                                </div>
-                                                                <a class="chck-btn hover-btn" role="button" data-toggle="collapse" href="#otp-verifaction">Send Code</a>
+                                                            <form action="/send-email-code-to-customer" method="GET">
+                                                                <div class="login-pone">
+                                                                    <input type="email" class="form-control" value="{{ base64_decode(base64_decode(base64_decode(request()->route()->user_email))) }}" placeholder="Email Address" name="customer_email" required>
+                                                                </div><br>
+                                                                <button class="btn btn-sm btn-info chck-btn hover-btn">Send Code</button>
                                                             </form>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="otp-verifaction">
-                                                <div class="row">
+                                                {{-- <div class="row">
                                                     <div class="col-lg-12">
-                                                        <div class="form-group mb-0">
-                                                            <label class="control-label">Enter Code</label>
-                                                            <ul class="code-alrt-inputs">
-                                                                <li>
-                                                                    <input id="code[1]" name="number" type="text" placeholder="" class="form-control input-md" required="">
-                                                                </li>
-                                                                <li>
-                                                                    <input id="code[2]" name="number" type="text" placeholder="" class="form-control input-md" required="">
-                                                                </li>
-                                                                <li>
-                                                                    <input id="code[3]" name="number" type="text" placeholder="" class="form-control input-md" required="">
-                                                                </li>
-                                                                <li>
-                                                                    <input id="code[4]" name="number" type="text" placeholder="" class="form-control input-md" required="">
-                                                                </li>
-                                                                <li>
-                                                                    <a class="collapsed chck-btn hover-btn" role="button" data-toggle="collapse" data-parent="#checkout_wizard" href="#collapseTwo">Next</a>
-                                                                </li>
-                                                            </ul>
-                                                            <a href="#" class="resend-link">Resend Code</a>
-                                                        </div>
+                                                        <form action="/confirm-user-code/{{ request()->route()->user_email }}">
+                                                            <div class="form-group mb-0">
+                                                                <label class="control-label">Enter Code</label>
+                                                                <ul class="code-alrt-inputs">
+                                                                    <li>
+                                                                        <input id="code[1]" name="digit1" type="text" placeholder="" class="form-control input-md" required="">
+                                                                    </li>
+                                                                    <li>
+                                                                        <input id="code[2]" name="digit2" type="text" placeholder="" class="form-control input-md" required="">
+                                                                    </li>
+                                                                    <li>
+                                                                        <input id="code[3]" name="digit3" type="text" placeholder="" class="form-control input-md" required="">
+                                                                    </li>
+                                                                    <li>
+                                                                        <input id="code[4]" name="digit4" type="text" placeholder="" class="form-control input-md" required="">
+                                                                    </li>
+                                                                    <li>
+                                                                        <button class="btn btn-info collapsed chck-btn hover-btn">Confirm code</button>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </form>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -125,7 +126,7 @@
                                                                     <div class="col-lg-6 col-md-12">
                                                                         <div class="form-group">
                                                                             <label class="control-label">Email Address*</label>
-                                                                            <input id="email1" name="email" type="email" placeholder="Email Address" class="form-control input-md" required="">
+                                                                            <input id="email1" name="email" type="email" placeholder="Email Address" value="{{ base64_decode(base64_decode(base64_decode(request()->route()->user_email))) }}" class="form-control input-md" required="" readonly>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-lg-6 col-md-6">
@@ -184,93 +185,95 @@
                                     </div>
                                     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#checkout_wizard">
                                         <div class="checkout-step-body">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label class="control-label">Select Date and Time*</label>
-                                                        <div class="date-slider-group">
-                                                            <div class="owl-carousel date-slider owl-theme">
-                                                                <div class="item">
-                                                                    <div class="date-now">
-                                                                        <input type="radio" id="dd1" name="address1" checked="">
-                                                                        <label for="dd1">Today</label>
+                                            <form action="/confirm-delivery-time-and-date/{{ base64_decode(base64_decode(base64_decode(request()->route()->user_email))) }}">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Select Date and Time*</label>
+                                                            <div class="date-slider-group">
+                                                                <div class="owl-carousel date-slider owl-theme">
+                                                                    <div class="item">
+                                                                        <div class="date-now">
+                                                                            <input type="radio" id="dd1" name="date1" value="Today" checked="">
+                                                                            <label for="dd1">Today</label>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="item">
-                                                                    <div class="date-now">
-                                                                        <input type="radio" id="dd2" name="address1">
-                                                                        <label for="dd2">Tomorrow</label>
+                                                                    <div class="item">
+                                                                        <div class="date-now">
+                                                                            <input type="radio" id="dd2" value="Tomorrow" name="date1">
+                                                                            <label for="dd2">Tomorrow</label>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="item">
-                                                                    <div class="date-now">
-                                                                        <input type="radio" id="dd3" name="address1">
-                                                                        <label for="dd3">10 May 2020</label>
+                                                                    <div class="item">
+                                                                        <div class="date-now">
+                                                                            <input type="radio" id="dd3" value="10 May 2020" name="date1">
+                                                                            <label for="dd3">10 May 2020</label>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="item">
-                                                                    <div class="date-now">
-                                                                        <input type="radio" id="dd4" name="address1">
-                                                                        <label for="dd4">11 May 2020</label>
+                                                                    <div class="item">
+                                                                        <div class="date-now">
+                                                                            <input type="radio" id="dd4" value="11 May 2020" name="date1">
+                                                                            <label for="dd4">11 May 2020</label>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="item">
-                                                                    <div class="date-now">
-                                                                        <input type="radio" id="dd5" name="address1">
-                                                                        <label for="dd5">12 May 2020</label>
+                                                                    <div class="item">
+                                                                        <div class="date-now">
+                                                                            <input type="radio" id="dd5" value="12 May 2020" name="date1">
+                                                                            <label for="dd5">12 May 2020</label>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="item">
-                                                                    <div class="date-now">
-                                                                        <input type="radio" id="dd6" name="address1">
-                                                                        <label for="dd6">13 May 2020</label>
+                                                                    <div class="item">
+                                                                        <div class="date-now">
+                                                                            <input type="radio" id="dd6" value="13 May 2020" name="date1">
+                                                                            <label for="dd6">13 May 2020</label>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="item">
-                                                                    <div class="date-now">
-                                                                        <input type="radio" id="dd7" name="address1">
-                                                                        <label for="dd7">14 May 2020</label>
+                                                                    <div class="item">
+                                                                        <div class="date-now">
+                                                                            <input type="radio" id="dd7" value="14 May 2020" name="date1">
+                                                                            <label for="dd7">14 May 2020</label>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="item">
-                                                                    <div class="date-now">
-                                                                        <input type="radio" id="dd8" name="address1">
-                                                                        <label for="dd8">15 May 2020</label>
+                                                                    <div class="item">
+                                                                        <div class="date-now">
+                                                                            <input type="radio" id="dd8" value="15 My 2020" name="date1">
+                                                                            <label for="dd8">15 May 2020</label>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="time-radio">
-                                                            <div class="ui form">
-                                                                <div class="grouped fields">
-                                                                    <div class="field">
-                                                                        <div class="ui radio checkbox chck-rdio">
-                                                                            <input type="radio" name="fruit" checked="" tabindex="0" class="hidden">
-                                                                            <label>8.00AM - 10.00AM</label>
+                                                            <div class="time-radio">
+                                                                <div class="ui form">
+                                                                    <div class="grouped fields">
+                                                                        <div class="field">
+                                                                            <div class="ui radio checkbox chck-rdio">
+                                                                                <input type="radio" name="time_range" value="8.00AM - 10.00AM" tabindex="0" class="hidden">
+                                                                                <label>8.00AM - 10.00AM</label>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="field">
-                                                                        <div class="ui radio checkbox chck-rdio">
-                                                                            <input type="radio" name="fruit" tabindex="0" class="hidden">
-                                                                            <label>10.00AM - 12.00PM</label>
+                                                                        <div class="field">
+                                                                            <div class="ui radio checkbox chck-rdio">
+                                                                                <input type="radio" name="time_range" value="10.00AM - 12.00PM" tabindex="0" class="hidden">
+                                                                                <label>10.00AM - 12.00PM</label>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="field">
-                                                                        <div class="ui radio checkbox chck-rdio">
-                                                                            <input type="radio" name="fruit" tabindex="0" class="hidden">
-                                                                            <label>12.00PM - 2.00PM</label>
+                                                                        <div class="field">
+                                                                            <div class="ui radio checkbox chck-rdio">
+                                                                                <input type="radio" name="time_range" value="12.00PM - 2.00PM" tabindex="0" class="hidden">
+                                                                                <label>12.00PM - 2.00PM</label>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="field">
-                                                                        <div class="ui radio checkbox chck-rdio">
-                                                                            <input type="radio" name="fruit" tabindex="0" class="hidden">
-                                                                            <label>2.00PM - 4.00PM</label>
+                                                                        <div class="field">
+                                                                            <div class="ui radio checkbox chck-rdio">
+                                                                                <input type="radio" name="time_range" value="2.00PM - 4.00PM" tabindex="0" class="hidden">
+                                                                                <label>2.00PM - 4.00PM</label>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="field">
-                                                                        <div class="ui radio checkbox chck-rdio">
-                                                                            <input type="radio" name="fruit" tabindex="0" class="hidden">
-                                                                            <label>4.00PM - 6.00PM</label>
+                                                                        <div class="field">
+                                                                            <div class="ui radio checkbox chck-rdio">
+                                                                                <input type="radio" name="time_range" value="4.00PM - 6.00PM" tabindex="0" class="hidden">
+                                                                                <label>4.00PM - 6.00PM</label>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -278,8 +281,9 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <a class="collapsed next-btn16 hover-btn" role="button" data-toggle="collapse" href="#collapseFour"> Proccess to payment </a>
+                                                <button class="btn btn-info collapsed next-btn16 hover-btn" type="submit"> Proccess to payment </button>
+                                                {{-- <a class="collapsed next-btn16 hover-btn" role="button" data-toggle="collapse" href="#collapseFour"> Proccess to payment </a> --}}
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -292,108 +296,110 @@
                                     </div>
                                     <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#checkout_wizard">
                                         <div class="checkout-step-body">
+                                            <form action="/place-order-for-client/{{ base64_decode(base64_decode(base64_decode(request()->route()->user_email))) }}" method="GET">
                                             <div class="payment_method-checkout">
                                                 <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="rpt100">
-                                                            <ul class="radio--group-inline-container_1">
-                                                                <li>
-                                                                    <div class="radio-item_1">
-                                                                        <input id="cashondelivery1" value="cashondelivery" name="paymentmethod" type="radio" data-minimum="50.0">
-                                                                        <label for="cashondelivery1" class="radio-label_1">Cash on Delivery</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li>
-                                                                    <div class="radio-item_1">
-                                                                        <input id="card1" value="card" name="paymentmethod" type="radio" data-minimum="50.0">
-                                                                        <label for="card1" class="radio-label_1">Credit / Debit Card</label>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="form-group return-departure-dts" data-method="cashondelivery">
-                                                            <div class="row">
-                                                                <div class="col-lg-12">
-                                                                    <div class="pymnt_title">
-                                                                        <h4>Cash on Delivery</h4>
-                                                                        <p>Cash on Delivery will not be available if your order value exceeds $10.</p>
-                                                                    </div>
-                                                                </div>
+                                                        <div class="col-md-12">
+                                                            <div class="rpt100">
+                                                                <ul class="radio--group-inline-container_1">
+                                                                    <li>
+                                                                        <div class="radio-item_1">
+                                                                            <input id="cashondelivery1" value="cashondelivery" name="paymentmethod" type="radio" data-minimum="50.0">
+                                                                            <label for="cashondelivery1" class="radio-label_1">Cash on Delivery</label>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li>
+                                                                        <div class="radio-item_1">
+                                                                            <input id="card1" value="card" name="paymentmethod" type="radio" data-minimum="50.0">
+                                                                            <label for="card1" class="radio-label_1">Credit / Debit Card</label>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
                                                             </div>
-                                                        </div>
-                                                        <div class="form-group return-departure-dts" data-method="card">
-                                                            <div class="row">
-                                                                <div class="col-lg-12">
-                                                                    <div class="pymnt_title mb-4">
-                                                                        <h4>Credit / Debit Card</h4>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-6">
-                                                                    <div class="form-group mt-1">
-                                                                        <label class="control-label">Holder Name*</label>
-                                                                        <div class="ui search focus">
-                                                                            <div class="ui left icon input swdh11 swdh19">
-                                                                                <input class="prompt srch_explore" type="text" name="holdername" value="" id="holder[name]" required="" maxlength="64" placeholder="Holder Name">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-6">
-                                                                    <div class="form-group mt-1">
-                                                                        <label class="control-label">Card Number*</label>
-                                                                        <div class="ui search focus">
-                                                                            <div class="ui left icon input swdh11 swdh19">
-                                                                                <input class="prompt srch_explore" type="text" name="cardnumber" value="" id="card[number]" required="" maxlength="64" placeholder="Card Number">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-4">
-                                                                    <div class="form-group mt-1">
-                                                                        <label class="control-label">Expiration Month*</label>
-                                                                        <select class="ui fluid search dropdown form-dropdown" name="card[expire-month]">
-                                                                            <option value="">Month</option>
-                                                                            <option value="1">January</option>
-                                                                            <option value="2">February</option>
-                                                                            <option value="3">March</option>
-                                                                            <option value="4">April</option>
-                                                                            <option value="5">May</option>
-                                                                            <option value="6">June</option>
-                                                                            <option value="7">July</option>
-                                                                            <option value="8">August</option>
-                                                                            <option value="9">September</option>
-                                                                            <option value="10">October</option>
-                                                                            <option value="11">November</option>
-                                                                            <option value="12">December</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-4">
-                                                                    <div class="form-group mt-1">
-                                                                        <label class="control-label">Expiration Year*</label>
-                                                                        <div class="ui search focus">
-                                                                            <div class="ui left icon input swdh11 swdh19">
-                                                                                <input class="prompt srch_explore" type="text" name="card[expire-year]" maxlength="4" placeholder="Year">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-4">
-                                                                    <div class="form-group mt-1">
-                                                                        <label class="control-label">CVV*</label>
-                                                                        <div class="ui search focus">
-                                                                            <div class="ui left icon input swdh11 swdh19">
-                                                                                <input class="prompt srch_explore" name="card[cvc]" maxlength="3" placeholder="CVV">
-                                                                            </div>
+                                                            <div class="form-group return-departure-dts" data-method="cashondelivery">
+                                                                <div class="row">
+                                                                    <div class="col-lg-12">
+                                                                        <div class="pymnt_title">
+                                                                            <h4>Cash on Delivery</h4>
+                                                                            <p>Cash on Delivery will not be available if your order value exceeds $10.</p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            <div class="form-group return-departure-dts" data-method="card">
+                                                                <div class="row">
+                                                                    <div class="col-lg-12">
+                                                                        <div class="pymnt_title mb-4">
+                                                                            <h4>Credit / Debit Card</h4>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-6">
+                                                                        <div class="form-group mt-1">
+                                                                            <label class="control-label">Holder Name*</label>
+                                                                            <div class="ui search focus">
+                                                                                <div class="ui left icon input swdh11 swdh19">
+                                                                                    <input class="prompt srch_explore" type="text" name="holdername" value="" id="holder[name]" maxlength="64" placeholder="Holder Name">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-6">
+                                                                        <div class="form-group mt-1">
+                                                                            <label class="control-label">Card Number*</label>
+                                                                            <div class="ui search focus">
+                                                                                <div class="ui left icon input swdh11 swdh19">
+                                                                                    <input class="prompt srch_explore" type="text" name="cardnumber" value="" id="card[number]" maxlength="64" placeholder="Card Number">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-4">
+                                                                        <div class="form-group mt-1">
+                                                                            <label class="control-label">Expiration Month*</label>
+                                                                            <select class="ui fluid search dropdown form-dropdown" name="card[expire-month]">
+                                                                                <option value="">Month</option>
+                                                                                <option value="1">January</option>
+                                                                                <option value="2">February</option>
+                                                                                <option value="3">March</option>
+                                                                                <option value="4">April</option>
+                                                                                <option value="5">May</option>
+                                                                                <option value="6">June</option>
+                                                                                <option value="7">July</option>
+                                                                                <option value="8">August</option>
+                                                                                <option value="9">September</option>
+                                                                                <option value="10">October</option>
+                                                                                <option value="11">November</option>
+                                                                                <option value="12">December</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-4">
+                                                                        <div class="form-group mt-1">
+                                                                            <label class="control-label">Expiration Year*</label>
+                                                                            <div class="ui search focus">
+                                                                                <div class="ui left icon input swdh11 swdh19">
+                                                                                    <input class="prompt srch_explore" type="text" name="card[expire-year]" maxlength="4" placeholder="Year">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-4">
+                                                                        <div class="form-group mt-1">
+                                                                            <label class="control-label">CVV*</label>
+                                                                            <div class="ui search focus">
+                                                                                <div class="ui left icon input swdh11 swdh19">
+                                                                                    <input class="prompt srch_explore" name="card[cvc]" maxlength="3" placeholder="CVV">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <a href="#" class="next-btn16 hover-btn">Place Order</a>
-                                                    </div>
                                                 </div>
                                             </div>
+                                            <button class="btn btn-info hover-btn" type="submit">Place Order</button>
+                                        </form>
                                         </div>
                                     </div>
                                 </div>

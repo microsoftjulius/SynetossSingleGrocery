@@ -37,6 +37,7 @@ use App\Http\Controllers\front\CheckoutController;
 use App\Http\Controllers\front\ProductRequestController;
 use App\Http\Controllers\front\BillController;
 use App\Http\Controllers\front\ClientAuthController;
+use App\Mail\SendUserCode;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -80,6 +81,11 @@ use App\Http\Controllers\front\ClientAuthController;
     Route::get('/privacy_policy', function() { return view('front_page.privacy_policy');})->name('Privacy Policy');
     Route::get('/term_and_conditions', function() { return view('front_page.terms-and-conditions');})->name('Tearms & Conditions');
     Route::get('/refund_and_return_policy', function() { return view('front_page.return-and-refund');})->name('Return $ Refund');
+    Route::get('/send-email-code-to-customer',[MailMarketingController::Class, 'sendCustomerCode']);
+    Route::get('/checkout/{user_email}/{user_code}',[CheckoutController::Class, 'confirmUserEnteredCode'])->name('checkout');
+    Route::get('/checkout/{user_email}',[CheckoutController::Class, 'proceedToCheckout'])->name('checkout');
+    Route::get('/confirm-delivery-time-and-date/{user_email}',[CheckoutController::Class, 'saveDeliveryDateAndTime']);
+    Route::get('/place-order-for-client',[CheckoutController::Class, 'makePayment']);
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard',[AdminController::Class, 'home'])->name('Dashboard')->middleware('is_admin');
@@ -112,7 +118,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/about',[AboutController::Class, 'index'])->name('About')->middleware('is_admin');
     Route::get('/home',[HomeController::Class, 'index'])->name('Front Home')->middleware('is_admin');
     Route::get('/cart', [CartController::Class, 'index'])->middleware('is_admin');
-    Route::get('/email',[MailController::Class,'sendEmail'])->middleware('is_admin');
     Route::get('/send-notification',[NotificationController::Class, 'sendNotification'])->middleware('is_admin');
     Route::get('/marketing',[MarketingController::Class, 'index'])->name('Marketing')->middleware('is_admin');
     Route::get('/news-letter-subscriber',[NewsLetterSubscriberController::Class, 'index'])->name('News Letter')->middleware('is_admin');
@@ -133,3 +138,6 @@ Route::get('/save-client-delivery-address',[CheckoutController::Class, 'saveClie
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/email', function(){
+    return new SendUserCode();
+});
