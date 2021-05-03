@@ -20,6 +20,7 @@
         "laravel/ui": "^3.2",
         "nwidart/laravel-modules": "^8.2",
         "spatie/laravel-permission": "^4.0",
+        "symfony/event-dispatcher": "^5.0",
         "tightenco/ziggy": "^1.0"
     },
     "require-dev": {

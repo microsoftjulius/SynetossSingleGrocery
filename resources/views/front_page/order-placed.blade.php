@@ -15,8 +15,6 @@
         <header class="header clearfix">
             @include('front_layout.topheader')
             @include('front_layout.menu')
-            </div>
-            </div>
         </header>
         <div class="wrapper">
             <div class="gambo-Breadcrumb">

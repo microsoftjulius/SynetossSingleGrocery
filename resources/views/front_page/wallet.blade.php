@@ -15,8 +15,6 @@
         <header class="header clearfix">
             @include('front_layout.topheader')
             @include('front_layout.menu')
-            </div>
-            </div>
         </header>
         <div class="wrapper">
             <div class="gambo-Breadcrumb">
@@ -64,9 +62,9 @@
                                                 <div class="reward-img-icon">
                                                     <img src="{{ asset('front_pages/images/money.svg')}}" alt="">
                                                 </div>
-                                                <span class="rewrd-title">My Balance</span>
-                                                <h4 class="cashbk-price">$120</h4>
-                                                <span class="date-reward">Added : 8 May 2020</span>
+                                                <span class="rewrd-title">My Wallet Balance</span>
+                                                <h4 class="cashbk-price">${{ $wallet_balance }}</h4>
+                                                <span class="date-reward">Last Updated On : {{ $wallet_balance_update }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -76,13 +74,13 @@
                                                 <div class="reward-img-icon">
                                                     <img class="rotate-img" src="{{ asset('front_pages/images/business.svg')}}" alt="">
                                                 </div>
-                                                <span class="rewrd-title">Gambo Cashback Blance</span>
+                                                <span class="rewrd-title">Synetoss Cashback Blance</span>
                                                 <h4 class="cashbk-price">$5</h4>
-                                                <p>100% of thiscan be used for your next order.</p>
+                                                <p>100% of this can be used for your next order.</p>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-12 col-md-12">
+                                    {{-- <div class="col-lg-12 col-md-12">
                                         <div class="pdpt-bg">
                                             <div class="pdpt-title">
                                                 <h4>Active Offers</h4>
@@ -128,7 +126,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="col-lg-6 col-md-12">
                                         <div class="pdpt-bg">
                                             <div class="pdpt-title">

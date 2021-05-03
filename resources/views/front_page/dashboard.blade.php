@@ -112,7 +112,7 @@
                                                 <h4>My Wallet</h4>
                                             </div>
                                             <div class="wllt-body">
-                                                <h2>Credits $100</h2>
+                                                <h2>Balance: ${{ $wallet_balance }}</h2>
                                                 <ul class="wallet-list">
                                                     <li>
                                                         <a href="#" class="wallet-links14"><i class="uil uil-card-atm"></i>Payment Methods</a>

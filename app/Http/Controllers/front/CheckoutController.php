@@ -106,8 +106,24 @@ class CheckoutController extends Controller
     /**
      * this function makes the payment
      */
-    protected function makePayment(){
-        return request();
-        // if()
+    protected function makePayment($user_email){
+        if(empty(request()->email)){
+            return redirect()->back()->withErrors('Please enter the delivery date and time to proceed')->withInput();
+        }
+        if(empty(request()->paymentmethod)){
+            return redirect()->back()->withErrors("Please enter a payment method to proceed")->withInput();
+        }else{
+            $payment = new ClientPayment;
+            $payment->paymentmethod         = request()->paymentmethod;
+            $payment->holdername            = request()->holdername;
+            $payment->cardnumber            = request()->cardnumber;
+            $payment->card_expire_month     = request()->card['expire-month'];
+            $payment->card_expire_year      = request()->card['expire-year'];
+            $payment->card_expire_month     = request()->card['expire-month'];
+            $payment->cvc                   = request()->card['cvc'];
+            $payment->created_by            = User::where('email',$user_email)->value('id');
+            $payment->save();
+            return redirect()->back()->with('msg','Payment Updated Successfully');
+        }
     }
 }

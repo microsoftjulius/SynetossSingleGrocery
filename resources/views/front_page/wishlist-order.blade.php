@@ -15,8 +15,6 @@
         <header class="header clearfix">
             @include('front_layout.topheader')
             @include('front_layout.menu')
-            </div>
-            </div>
         </header>
         <div class="wrapper">
             <div class="gambo-Breadcrumb">
@@ -64,34 +62,37 @@
                                                 <h6>Delivery Timing 10 May, 3.00PM - 6.00PM</h6>
                                             </div>
                                             <div class="order-body10">
+
+                                            @foreach ($items_in_cart as $item)
                                                 <ul class="order-dtsll">
                                                     <li>
                                                         <div class="order-dt-img">
-                                                            <img src="{{ asset('front_pages/images/groceries.svg')}}" alt="">
+                                                            <img src="{{asset('images/item/'.$item->image)}}" alt="">
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div class="order-dt47">
-                                                            <h4>Gambo - Ludhiana</h4>
-                                                            <p>Delivered - Gambo</p>
-                                                            <div class="order-title">2 Items <span data-inverted="" data-tooltip="2kg broccoli, 1kg Apple" data-position="top center">?</span></div>
+                                                            <h4>{{ $item->item_name }}</h4>
+                                                            <p>{{ $item->slug }}</p>
+                                                            <div class="order-title">{{ $item->quantity }} Items <span data-inverted="" data-tooltip="2kg broccoli, 1kg Apple" data-position="top center">?</span></div>
                                                         </div>
                                                     </li>
                                                 </ul>
+                                                @endforeach
                                                 <div class="total-dt">
                                                     <div class="total-checkout-group">
                                                         <div class="cart-total-dil">
                                                             <h4>Sub Total</h4>
-                                                            <span>$25</span>
+                                                            <span>${{ $total_amount }}</span>
                                                         </div>
                                                         <div class="cart-total-dil pt-3">
                                                             <h4>Delivery Charges</h4>
-                                                            <span>Free</span>
+                                                            <span>{{ $delivery_charges }}</span>
                                                         </div>
                                                     </div>
                                                     <div class="main-total-cart">
                                                         <h2>Total</h2>
-                                                        <span>$25</span>
+                                                        <span>${{ $total_amount + $delivery_charges }}</span>
                                                     </div>
                                                 </div>
                                                 <div class="track-order">
@@ -134,84 +135,6 @@
                                                 <div class="call-bill">
                                                     <div class="delivery-man">
                                                         Delivery Boy - <a href="#"><i class="uil uil-phone"></i> Call Us</a>
-                                                    </div>
-                                                    <div class="order-bill-slip">
-                                                        <a href="#" class="bill-btn5 hover-btn">View Bill</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="pdpt-bg">
-                                            <div class="pdpt-title">
-                                                <h6>Delivery Timing 10 May, 3.00PM - 6.00PM</h6>
-                                            </div>
-                                            <div class="order-body10">
-                                                <ul class="order-dtsll">
-                                                    <li>
-                                                        <div class="order-dt-img">
-                                                            <img src="{{ asset('front_pages/images/groceries.svg')}}" alt="">
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="order-dt47">
-                                                            <h4>Gambo - Ludhiana</h4>
-                                                            <p>Delivered - Gambo</p>
-                                                            <div class="order-title">2 Items <span data-inverted="" data-tooltip="2kg broccoli, 1kg Apple" data-position="top center">?</span></div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                                <div class="total-dt">
-                                                    <div class="total-checkout-group">
-                                                        <div class="cart-total-dil">
-                                                            <h4>Sub Total</h4>
-                                                            <span>$25</span>
-                                                        </div>
-                                                        <div class="cart-total-dil pt-3">
-                                                            <h4>Delivery Charges</h4>
-                                                            <span>Free</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="main-total-cart">
-                                                        <h2>Total</h2>
-                                                        <span>$25</span>
-                                                    </div>
-                                                </div>
-                                                <div class="track-order">
-                                                    <h4>Track Order</h4>
-                                                    <div class="bs-wizard" style="border-bottom:0;">
-                                                        <div class="bs-wizard-step complete">
-                                                            <div class="text-center bs-wizard-stepnum">Placed</div>
-                                                            <div class="progress">
-                                                                <div class="progress-bar"></div>
-                                                            </div>
-                                                            <a href="#" class="bs-wizard-dot"></a>
-                                                        </div>
-                                                        <div class="bs-wizard-step complete">
-                                                            <div class="text-center bs-wizard-stepnum">Packed</div>
-                                                            <div class="progress">
-                                                                <div class="progress-bar"></div>
-                                                            </div>
-                                                            <a href="#" class="bs-wizard-dot"></a>
-                                                        </div>
-                                                        <div class="bs-wizard-step complete">
-                                                            <div class="text-center bs-wizard-stepnum">Arrived</div>
-                                                            <div class="progress">
-                                                                <div class="progress-bar"></div>
-                                                            </div>
-                                                            <a href="#" class="bs-wizard-dot"></a>
-                                                        </div>
-                                                        <div class="bs-wizard-step complete">
-                                                            <div class="text-center bs-wizard-stepnum">Delivered</div>
-                                                            <div class="progress">
-                                                                <div class="progress-bar"></div>
-                                                            </div>
-                                                            <a href="#" class="bs-wizard-dot"></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="call-bill">
-                                                    <div class="delivery-man">
-                                                        <a href="#"><i class="uil uil-rss"></i>Feedback</a>
                                                     </div>
                                                     <div class="order-bill-slip">
                                                         <a href="#" class="bill-btn5 hover-btn">View Bill</a>

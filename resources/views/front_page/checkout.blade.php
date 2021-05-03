@@ -395,7 +395,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <button class="btn btn-info hover-btn" type="submit">Place Order</button>

@@ -38,6 +38,12 @@ use App\Http\Controllers\front\ProductRequestController;
 use App\Http\Controllers\front\BillController;
 use App\Http\Controllers\front\ClientAuthController;
 use App\Mail\SendUserCode;
+use App\Http\Controllers\front\ClientOrdersController;
+use App\Http\Controllers\front\ClientRewardsController;
+use App\Http\Controllers\front\ClientWalletController;
+use App\Http\Controllers\front\ClientWishlistController;
+use App\Http\Controllers\front\ClientAddressController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -72,12 +78,12 @@ use App\Mail\SendUserCode;
     Route::get('/blog_detail_view', function() { return view('front_page.blog_details');})->name('Blog Details');
     Route::get('/offers', function() { return view('front_page.offers');})->name('Offers');
     Route::get('/faq', function() { return view('front_page.faq');})->name('Faq');
-    Route::get('/dashboard_my_wishlist', function() { return view('front_page.wishlist');})->name('My Wishlist');
+    Route::get('/dashboard_my_wishlist', [ClientWishlistController::Class, 'getClientWishlist'])->name('My Wishlist');
     Route::get('/wishlist_overview', function() { return view('front_page.wishlist_overview');})->name('Wishlist Overview');
-    Route::get('/my_orders', function() { return view('front_page.wishlist-order');})->name('Dashboard My Orders');
-    Route::get('/dashboard_my_rewards', function() { return view('front_page.rewards');})->name('My Rewards');
-    Route::get('/dashboard_my_wallet', function() { return view('front_page.wallet');})->name('My Wallet');
-    Route::get('/dashboard_my_addresses', function() { return view('front_page.address');})->name('My Address');
+    Route::get('/my_orders', [ClientOrdersController::Class, 'getClientOrders'])->name('Dashboard My Orders');
+    Route::get('/dashboard_my_rewards', [ClientRewardsController::Class, 'getClientRewards'])->name('My Rewards');
+    Route::get('/dashboard_my_wallet', [ClientWalletController::Class, 'getClientWallet'])->name('My Wallet');
+    Route::get('/dashboard_my_addresses', [ClientAddressController::Class, 'getClientAddress'])->name('My Address');
     Route::get('/privacy_policy', function() { return view('front_page.privacy_policy');})->name('Privacy Policy');
     Route::get('/term_and_conditions', function() { return view('front_page.terms-and-conditions');})->name('Tearms & Conditions');
     Route::get('/refund_and_return_policy', function() { return view('front_page.return-and-refund');})->name('Return $ Refund');
@@ -85,7 +91,7 @@ use App\Mail\SendUserCode;
     Route::get('/checkout/{user_email}/{user_code}',[CheckoutController::Class, 'confirmUserEnteredCode'])->name('checkout');
     Route::get('/checkout/{user_email}',[CheckoutController::Class, 'proceedToCheckout'])->name('checkout');
     Route::get('/confirm-delivery-time-and-date/{user_email}',[CheckoutController::Class, 'saveDeliveryDateAndTime']);
-    Route::get('/place-order-for-client',[CheckoutController::Class, 'makePayment']);
+    Route::get('/place-order-for-client/{user_email}',[CheckoutController::Class, 'makePayment']);
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard',[AdminController::Class, 'home'])->name('Dashboard')->middleware('is_admin');
