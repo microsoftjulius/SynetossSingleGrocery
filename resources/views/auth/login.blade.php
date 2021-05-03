@@ -13,6 +13,7 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-5">
+                        @include('layouts.admin-partials.messages')
                         <div class="sign-form">
                             <div class="sign-inner">
                                 <div class="sign-logo" id="logo">
@@ -44,6 +45,23 @@
                                             </div>
                                             <button class="login-btn hover-btn" type="submit">Sign In Now</button>
                                         </form>
+                                        <div class="row mt-2">
+                                            <div class="col-lg-4">
+                                                <a href="/auth/facebook"><button type="button" class="btn btn-primary">
+                                                    FaceBook
+                                                </button></a>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <a href="/auth/gmail"><button type="button" class="btn btn-danger">
+                                                    Gmail
+                                                </button></a>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <a href="/auth/github"><button type="button" class="btn btn-dark">
+                                                    Github
+                                                </button></a>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="password-forgor">
                                         <a href="/forgot_password">Forgot Password?</a>

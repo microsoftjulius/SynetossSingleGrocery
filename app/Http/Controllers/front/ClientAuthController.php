@@ -4,6 +4,7 @@ namespace App\Http\Controllers\front;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Laravel\Socialite\Facades\Socialite;
 
 class ClientAuthController extends Controller
 {
@@ -27,4 +28,5 @@ class ClientAuthController extends Controller
     protected function forgotPassword(){
         return view('front_page.forgot_password');
     }
+    
 }

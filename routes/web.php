@@ -43,6 +43,7 @@ use App\Http\Controllers\front\ClientRewardsController;
 use App\Http\Controllers\front\ClientWalletController;
 use App\Http\Controllers\front\ClientWishlistController;
 use App\Http\Controllers\front\ClientAddressController;
+use App\Http\Controllers\Auth\SocialLoginsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -144,6 +145,11 @@ Route::get('/save-client-delivery-address',[CheckoutController::Class, 'saveClie
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/email', function(){
-    return new SendUserCode();
-});
+Route::get('/email', function(){ return new SendUserCode(); });
+
+Route::get('/auth/github', [SocialLoginsController::Class, 'redirectUser']);
+Route::get('/auth/callback', [SocialLoginsController::Class, 'handleProviderCallBack']);
+Route::get('/auth/facebook', [SocialLoginsController::Class, 'redirectFacebookUser']);
+Route::get('/auth/callback/facebook', [SocialLoginsController::Class, 'handleProviderCallBackForFaceBook']);
+Route::get('/auth/gmail', [SocialLoginsController::Class, 'redirectGmailUser']);
+Route::get('/auth/callback/gmail', [SocialLoginsController::Class, 'handleProviderCallBackForGmail']);
