@@ -105,10 +105,12 @@
                     </div>
                     <div class="second-row-item-payment">
                         <h4>Newsletter</h4>
-                        <div class="newsletter-input">
-                            <input id="email" name="email" type="text" placeholder="Email Address" class="form-control input-md" required="">
-                            <button class="newsletter-btn hover-btn" type="submit"><i class="uil uil-telegram-alt"></i></button>
-                        </div>
+                        <form action="/subscribe-for-news-letter" method="GET">
+                            <div class="newsletter-input">
+                                <input id="email" name="email" type="email" placeholder="Email Address" class="form-control input-md" required="">
+                                <button class="newsletter-btn hover-btn" type="submit"><i class="uil uil-telegram-alt"></i></button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

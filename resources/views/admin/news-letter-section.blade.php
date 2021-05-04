@@ -20,18 +20,20 @@
                                     <th class="th-sm">
                                         <input type="checkbox" name="" id="">
                                     </th>
-                                    <th class="th-sm">Customer Name</th>
                                     <th>E-Mail</th>
+                                    <th>Options</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($getorders as $i=>$orders) --}}
+                                @foreach ($subscribers as $i=>$subscriber)
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{{ $i+1 }}</td>
+                                        <td>{{ $subscriber->subscribers_email }}</td>
+                                        <td>
+                                            <button type="button" value="" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></button>
+                                        </td>
                                     </tr>
-                                {{-- @endforeach --}}
+                                @endforeach
                         </table>
                     </div>
                 </div>

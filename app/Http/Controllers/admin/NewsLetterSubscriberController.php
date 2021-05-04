@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use Illuminate\Http\Request;
-use App\Mail\VerifictionEmail;
+use App\Mail\SubscriberMail;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Controller;
 use App\Notifications\EmailNotification;
@@ -12,7 +12,8 @@ use App\Models\NewsLetterSubscriber;
 class NewsLetterSubscriberController extends Controller
 {
     protected function index(){
-        return view('admin.news-letter-section');
+        $subscribers = NewsLetterSubscriber::get();
+        return view('admin.news-letter-section',compact('subscribers'));
     }
 
     protected function createNewsLetterSubscriber(){
@@ -25,9 +26,21 @@ class NewsLetterSubscriberController extends Controller
     }
 
     private function sendEmail(){
-        // $email = request()->email;
-        $email = 'julisema4@gmailcom';
-        Mail::to($email)->send(new VerifictionEmail);
+        $email = request()->email;
+        // $email = 'julisema4@gmailcom';
+        Mail::to($email)->send(new SubscriberMail);
         return redirect()->back()->with('msg','Your subscription has been recieved successfully and an email has been sent you');
+    }
+
+    /**
+     * this function is for subscribing for news letter
+     */
+    protected function subscriberNewsLetter(){
+        if(NewsLetterSubscriber::where('subscribers_email',request()->email)->doesntExist()){
+            NewsLetterSubscriber::create(array(
+                'subscribers_email' => request()->email
+            ));
+        }
+        return $this->sendEmail();
     }
 }

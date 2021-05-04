@@ -44,8 +44,8 @@ class SocialLoginsController extends Controller
             $user_name = $facebook_user->getNickname();
         }
         if(User::where('email',$facebook_user->getEmail())->exists()){
-            return redirect('/login')->with('msg','An Account Associated with this Email Already exists, Kindly Login to proceed');
-        }
+            auth()->login();
+            return redirect('/dashboard_overview');         }
         $user = User::create([
             'email'       => $facebook_user->getEmail(),
             'name'        => $user_name,
@@ -72,8 +72,8 @@ class SocialLoginsController extends Controller
             $user_name = $gmail_user->getNickname();
         }
         if(User::where('email',$gmail_user->getEmail())->exists()){
-            return redirect('/login')->with('msg','An Account Associated with this Email Already exists, Kindly Login to proceed');
-        }
+            auth()->login();
+            return redirect('/dashboard_overview');         }
         $user = User::create([
             'email'       => $gmail_user->getEmail(),
             'name'        => $user_name,
@@ -100,8 +100,8 @@ class SocialLoginsController extends Controller
             $user_name = $github_user->getNickname();
         }
         if(User::where('email',$github_user->getEmail())->exists()){
-            return redirect('/login')->with('msg','An Account Associated with this Email Already exists, Kindly Login to proceed');
-        }
+            auth()->login();
+            return redirect('/dashboard_overview');        }
         $user = User::create([
             'email'       => $github_user->getEmail(),
             'name'        => $user_name,
