@@ -44,7 +44,11 @@ use App\Http\Controllers\front\ClientWalletController;
 use App\Http\Controllers\front\ClientWishlistController;
 use App\Http\Controllers\front\ClientAddressController;
 use App\Http\Controllers\Auth\SocialLoginsController;
-
+use App\Http\Controllers\front\OffersController;
+use App\Http\Controllers\front\BlogController;
+use App\Http\Controllers\front\FaqController;
+use App\Http\Controllers\front\CareerController;
+use App\Http\Controllers\front\ContactUsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -66,8 +70,8 @@ use App\Http\Controllers\Auth\SocialLoginsController;
     Route::get('/featured-products', [FeaturedItemsController::Class, 'getFeaturedProducts'])->name('Featured Products');
     Route::get('/about_us', [AboutUsController::Class, 'aboutUs'])->name('About Us');
     Route::get('/checkout', [CheckoutController::Class, 'proceedToCheckout'])->name('checkout');
-    Route::get('/our_blog', function(){ return view('front_page.our-blog');})->name('Our Blog');
-    Route::get('/career', function(){ return view('front_page.career');})->name('Career');
+    Route::get('/our_blog', [BlogController::Class,'getBlog'])->name('Our Blog');
+    Route::get('/career', [CareerController::Class,'getCareer'])->name('Career');
     Route::get('/press', function(){ return view('front_page.press');})->name('Press');
     Route::get('/request_product', [ProductRequestController::Class, 'requestForProduct'])->name('Request Product');
     Route::get('/order_placed', [OrderPlacedController::Class, 'getPlacedOrders'])->name('Order Placed');
@@ -77,8 +81,8 @@ use App\Http\Controllers\Auth\SocialLoginsController;
     Route::get('/forgot_password', [ClientAuthController::Class, 'forgotPassword'])->name('Forgot Password');
     Route::get('/contact_us', [ContactUsController::Class, 'contactUs'])->name('Contact');
     Route::get('/blog_detail_view', function() { return view('front_page.blog_details');})->name('Blog Details');
-    Route::get('/offers', function() { return view('front_page.offers');})->name('Offers');
-    Route::get('/faq', function() { return view('front_page.faq');})->name('Faq');
+    Route::get('/offers',[OffersController::Class, 'getOffers'])->name('Offers');
+    Route::get('/faq', [FaqController::Class, 'getFaq'])->name('Faq');
     Route::get('/dashboard_my_wishlist', [ClientWishlistController::Class, 'getClientWishlist'])->name('My Wishlist');
     Route::get('/wishlist_overview', function() { return view('front_page.wishlist_overview');})->name('Wishlist Overview');
     Route::get('/my_orders', [ClientOrdersController::Class, 'getClientOrders'])->name('Dashboard My Orders');
