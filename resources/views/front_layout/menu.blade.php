@@ -28,7 +28,8 @@
                         </div>
                     </div>
                 </li>
-                <li class="nav-item">
+                {{--
+                    <li class="nav-item">
                     <div class="ui icon top left dropdown nav__menu">
                         <a class="nav-link" title="Blog">Blog <i class="uil uil-angle-down"></i></a>
                         <div class="menu dropdown_page">
@@ -37,6 +38,7 @@
                         </div>
                     </div>
                 </li>
+                --}}
                 <li class="nav-item"><a href="/contact_us" class="nav-link" title="Contact">Contact Us</a></li>
             </ul>
         </div>
