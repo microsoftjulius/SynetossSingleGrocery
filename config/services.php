@@ -47,4 +47,10 @@ return [
         'client_secret' => env('GMAIL_CLIENT_SECRET'),
         'redirect' => env('GMAIL_CALLBACK_URL'),
     ],
+
+    'stripe' => [
+        'model'  => App\User::class,
+        'key' => env('STRIPE_KEY'),
+        'secret' => env('STRIPE_SECRET'),
+    ],
 ];

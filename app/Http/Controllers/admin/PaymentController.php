@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use Redirect;
 use App\Models\Payment;
 use Validator;
+use Stripe;
+use Session;
 
 class PaymentController extends Controller
 {
@@ -107,5 +109,25 @@ class PaymentController extends Controller
         } else {
             return 0;
         }
+    }
+
+    /**
+     * this function tests the payment
+     */
+    protected function testPayment(Request $request){
+        // $token = $request->stripeToken;
+        $token = 'dasdojr7423099842';
+        // return 3;
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        Stripe\Charge::create ([
+                "amount" => 120 * 100,
+                "currency" => "inr",
+                "source" => $token,
+                "description" => "Make payment and chill." 
+        ]);
+
+        Session::flash('success', 'Payment successfully made.');
+            
+        return back();
     }
 }

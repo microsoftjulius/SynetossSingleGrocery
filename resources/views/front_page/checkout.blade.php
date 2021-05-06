@@ -296,7 +296,9 @@
                                     </div>
                                     <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#checkout_wizard">
                                         <div class="checkout-step-body">
-                                            <form action="/place-order-for-client/{{ base64_decode(base64_decode(base64_decode(request()->route()->user_email))) }}" method="GET">
+                                            <form action="/place-order-for-client/{{ base64_decode(base64_decode(base64_decode(request()->route()->user_email))) }}" data-stripe-publishable-key="{{ env('STRIPE_KEY') }}"
+                                                method="GET" class="stripe-payment"
+                                                data-cc-on-file="false">
                                             <div class="payment_method-checkout">
                                                 <div class="row">
                                                         <div class="col-md-12">
@@ -460,6 +462,7 @@
         </div>
         @include('front_layout.footer')
         @include('front_layout.javascript')
+        
     </body>
 </html>
 

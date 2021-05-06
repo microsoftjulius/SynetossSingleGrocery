@@ -158,19 +158,20 @@ Route::get('/auth/callback/facebook', [SocialLoginsController::Class, 'handlePro
 Route::get('/auth/gmail', [SocialLoginsController::Class, 'redirectGmailUser']);
 Route::get('/auth/callback/gmail', [SocialLoginsController::Class, 'handleProviderCallBackForGmail']);
 
-Route::group(['prefix' => LaravelLocalization::setLocale()], function()
-{
-	/** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
-	Route::get('/', function()
-	{
-		return "Hello";
-	});
+// Route::group(['prefix' => LaravelLocalization::setLocale()], function()
+// {
+// 	/** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
+// 	Route::get('/', function()
+// 	{
+// 		return "Hello";
+// 	});
 
-	Route::get('test',function(){
-		return View::make('test');
-	});
-});
+// 	Route::get('test',function(){
+// 		return View::make('test');
+// 	});
+// });
 
 /** OTHER PAGES THAT SHOULD NOT BE LOCALIZED **/
 
 Route::get('/subscribe-for-news-letter',[NewsLetterSubscriberController::Class, 'subscriberNewsLetter']);
+Route::get('/make-payment',[PaymentController::Class, 'testPayment']);

@@ -22,6 +22,7 @@
         "mcamara/laravel-localization": "^1.6",
         "nwidart/laravel-modules": "^8.2",
         "spatie/laravel-permission": "^4.0",
+        "stripe/stripe-php": "^7.78",
         "symfony/event-dispatcher": "^5.0",
         "tightenco/ziggy": "^1.0",
         "tymon/jwt-auth": "^1.0"
