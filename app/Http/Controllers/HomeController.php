@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\Models\Category;
+use App\Models\Item;
+
 
 class HomeController extends Controller
 {

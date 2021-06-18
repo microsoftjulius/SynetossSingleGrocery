@@ -97,6 +97,7 @@ use App\Http\Controllers\front\ContactUsController;
     Route::get('/checkout/{user_email}',[CheckoutController::Class, 'proceedToCheckout'])->name('checkout');
     Route::get('/confirm-delivery-time-and-date/{user_email}',[CheckoutController::Class, 'saveDeliveryDateAndTime']);
     Route::get('/place-order-for-client/{user_email}',[CheckoutController::Class, 'makePayment']);
+    Route::get('/create-new-account',[ClientAuthController::Class, 'registerAccount']);
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard',[AdminController::Class, 'home'])->name('Dashboard')->middleware('is_admin');
